@@ -3,22 +3,27 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import utils.PageBase;
 
 public class SignInPage extends PageBase {
 
-    private By emailField = By.id("email");
-    private By passwordField = By.id("password");
-    private By showPasswordButton = By.xpath("//button[@class='btn btn-outline-secondary']");
-    private By loginButton = By.cssSelector("input[value='Login']");
-    private By registerLink = By.cssSelector("a[data-test='register-link']");
-    private By forgotPasswordLink = By.className("ForgetPwd");
-
+    @FindBy (id = "email")
     private WebElement emailFieldElement;
+
+    @FindBy (id = "password")
     private WebElement passwordFieldElement;
+
+    @FindBy (xpath = "//button[@class='btn btn-outline-secondary']")
     private WebElement showPasswordButtonElement;
+
+    @FindBy (css = "input[value='Login']")
     private WebElement loginButtonElement;
+
+    @FindBy (css = "a[data-test='register-link']")
     private WebElement registerLinkElement;
+
+    @FindBy (className = "ForgetPwd")
     private WebElement forgotPasswordLinkElement;
 
     public SignInPage(WebDriver driver) {
@@ -26,34 +31,28 @@ public class SignInPage extends PageBase {
     }
 
     public void enterEmail(String email) {
-        emailFieldElement = driver.findElement(emailField);
         emailFieldElement.sendKeys(email);
     }
 
     public void enterPassword(String password) {
-        passwordFieldElement = driver.findElement(passwordField);
         passwordFieldElement.sendKeys(password);
     }
 
     public void clickOnShowPasswordButton() {
-        showPasswordButtonElement = driver.findElement(showPasswordButton);
         showPasswordButtonElement.click();
     }
 
     public void clickOnLoginButton() {
-        loginButtonElement = driver.findElement(loginButton);
         loginButtonElement.click();
     }
 
     public RegistrationPage clickOnRegisterLink() {
-        registerLinkElement = driver.findElement(registerLink);
         registerLinkElement.click();
 
         return new RegistrationPage(driver);
     }
 
     public ForgotPasswordPage clickOnForgotPasswordLink() {
-        forgotPasswordLinkElement = driver.findElement(forgotPasswordLink);
         forgotPasswordLinkElement.click();
 
         return new ForgotPasswordPage(driver);
