@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,16 +36,16 @@ public class RegistrationPage extends PageBase {
     private WebElement phoneFieldElement;
 
     @FindBy (id = "email")
-    private WebElement emailFieldElement;
+    public WebElement emailFieldElement;
 
     @FindBy (id = "password")
-    private WebElement passwordFieldElement;
+    public WebElement passwordFieldElement;
 
     @FindBy (xpath = "(button[class='btn btn-outline-secondary']")
-    private WebElement showPasswordButtonElement;
+    public WebElement showPasswordButtonElement;
 
     @FindBy (css = "button[data-test='register-submit']")
-    private WebElement registerButtonElement;
+    public WebElement registerButtonElement;
 
     public RegistrationPage(WebDriver driver) {
         super(driver);

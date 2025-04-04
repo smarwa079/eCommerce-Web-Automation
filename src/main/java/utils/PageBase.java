@@ -5,25 +5,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.CartPage;
+import pages.SignInPage;
 
 public class PageBase {
 
     protected WebDriver driver;
 
     @FindBy (linkText = "Home")
-    protected WebElement homeLinkElement;
+    public WebElement homeLinkElement;
 
     @FindBy (linkText = "Categories")
-    protected WebElement categoriesDropdownElement;
+    public WebElement categoriesDropdownElement;
 
     @FindBy (linkText = "Contact")
-    protected WebElement contactLinkElement;
+    public WebElement contactLinkElement;
 
     @FindBy (linkText = "Sign in")
-    protected WebElement signInLinkElement;
+    public WebElement signInLinkElement;
 
     @FindBy (css = "a[aria-label='cart']")
-    protected WebElement cartLinkElement;
+    public WebElement cartLinkElement;
 
     public PageBase(WebDriver driver)
     {
@@ -52,13 +54,17 @@ public class PageBase {
         contactLinkElement.click();
     }
 
-    public void clickOnSignInLink()
+    public SignInPage clickOnSignInLink()
     {
         signInLinkElement.click();
+
+        return new SignInPage(driver);
     }
 
-    public void clickOnCartLink()
+    public CartPage clickOnCartLink()
     {
         cartLinkElement.click();
+
+        return new CartPage(driver);
     }
 }

@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,23 +7,23 @@ import utils.PageBase;
 
 public class SignInPage extends PageBase {
 
-    @FindBy (id = "email")
-    private WebElement emailFieldElement;
+    @FindBy (xpath = "//form[@data-test='login-form'] //input[@id='email']")
+    WebElement emailFieldElement;
 
-    @FindBy (id = "password")
-    private WebElement passwordFieldElement;
+    @FindBy (xpath = "//form[@data-test='login-form'] //input[@id='password']")
+    WebElement passwordFieldElement;
 
     @FindBy (xpath = "//button[@class='btn btn-outline-secondary']")
-    private WebElement showPasswordButtonElement;
+    WebElement showPasswordButtonElement;
 
     @FindBy (css = "input[value='Login']")
-    private WebElement loginButtonElement;
+    public WebElement loginButtonElement;
 
     @FindBy (css = "a[data-test='register-link']")
-    private WebElement registerLinkElement;
+    WebElement registerLinkElement;
 
     @FindBy (className = "ForgetPwd")
-    private WebElement forgotPasswordLinkElement;
+     WebElement forgotPasswordLinkElement;
 
     public SignInPage(WebDriver driver) {
         super(driver);

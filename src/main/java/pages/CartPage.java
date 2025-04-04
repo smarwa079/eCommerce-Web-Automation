@@ -6,8 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import utils.PageBase;
 
 import java.util.List;
-import java.util.OptionalInt;
-import java.util.stream.IntStream;
 
 public class CartPage extends PageBase {
 
@@ -24,7 +22,7 @@ public class CartPage extends PageBase {
     List<WebElement> removeButtonsList;
 
     @FindBy(xpath = "//button[text()='Proceed to checkout']")
-    private WebElement proceedToCheckoutElement;
+    public WebElement proceedToCheckoutElement;
 
     @FindBy(xpath = "//td[@data-test='cart-total']")
     WebElement totalPriceElement;
@@ -38,24 +36,20 @@ public class CartPage extends PageBase {
     }
 
     public void updateProductQuantity(String productName, int quantity) {
-        OptionalInt indexOpt = IntStream.range(0, cartItemsList.size())
-                .filter(i -> cartItemsList.get(i).getText().equals(productName))
-                .findFirst();
+        List<WebElement> items = cartItemsList.stream().filter(i -> i.getText().equalsIgnoreCase(productName)).toList();
 
-        indexOpt.ifPresent(index -> {
-            WebElement quantityInput = quantityInputsList.get(index);
-            quantityInput.clear();
-            quantityInput.sendKeys(String.valueOf(quantity));
-        });
+        int index = items.indexOf(productName);
+
+        quantityInputsList.get(index).sendKeys(Integer.toString(quantity));
     }
 
     public void clickOnRemoveProductButton(String productName) {
-        OptionalInt indexOpt = IntStream.range(0, cartItemsList.size())
-                .filter(i -> cartItemsList.get(i).getText().equals(productName))
-                .findFirst();
+        List<WebElement> items = cartItemsList.stream().filter(i -> i.getText().equalsIgnoreCase(productName)).toList();
 
-        // Click the corresponding remove button if the product is found
-        indexOpt.ifPresent(index -> removeButtonsList.get(index).click());
+        int index = items.indexOf(productName);
+
+        removeButtonsList.get(index).click();
+
     }
 
     public double getTotalPrice() {

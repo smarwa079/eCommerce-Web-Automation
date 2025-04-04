@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,22 +8,22 @@ import utils.PageBase;
 public class ProductDetailsPage extends PageBase {
 
     @FindBy (css = "h1[data-test='product-name']")
-    private WebElement productNameElement;
+    WebElement productNameElement;
 
     @FindBy (className = "btn-increase-quantity")
-    private WebElement increaseQuantityButtonElement;
+    WebElement increaseQuantityButtonElement;
 
     @FindBy (className = "btn-decrease-quantity")
-    private WebElement decreaseQuantityButtonElement;
+    WebElement decreaseQuantityButtonElement;
 
     @FindBy (xpath = "//button[@data-test='add-to-cart']")
-    private WebElement addToCartButtonElement;
+    WebElement addToCartButtonElement;
 
     @FindBy (id = "btn-add-to-favorites")
-    private WebElement addToFavoritesButtonElement;
+    WebElement addToFavoritesButtonElement;
 
     @FindBy (xpath = "//div[@role='alert']")
-    private WebElement addToCartMessageElement;
+    WebElement addToCartMessageElement;
 
     public ProductDetailsPage(WebDriver driver) {
         super(driver);

@@ -9,10 +9,10 @@ import utils.PageBase;
 public class ForgotPasswordPage extends PageBase {
 
     @FindBy (id = "email")
-    private WebElement emailFieldElement;
+    WebElement emailFieldElement;
 
     @FindBy (className = "btnSubmit")
-    private WebElement sendNewPasswordButtonElement;
+    WebElement sendNewPasswordButtonElement;
 
     public ForgotPasswordPage(WebDriver driver) {
         super(driver);
