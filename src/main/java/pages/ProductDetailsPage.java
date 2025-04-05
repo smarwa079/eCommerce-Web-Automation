@@ -25,36 +25,39 @@ public class ProductDetailsPage extends PageBase {
     @FindBy (xpath = "//div[@role='alert']")
     WebElement addToCartMessageElement;
 
-    public ProductDetailsPage(WebDriver driver) {
+    public ProductDetailsPage(WebDriver driver)
+    {
         super(driver);
     }
 
-    public String getProductName() {
+    public String getProductName()
+    {
         return productNameElement.getText();
     }
 
-    public void clickOnIncreaseQuantityButton() {
-        increaseQuantityButtonElement.click();
-    }
-
-    public void clickOnDecreaseQuantityButton() {
-        decreaseQuantityButtonElement.click();
-    }
-
-    public void clickOnAddToCartButton() {
-        addToCartButtonElement.click();
-    }
-
-    public void clickOnAddToFavoritesButton() {
-        addToFavoritesButtonElement.click();
-    }
-
-    public String getAddToCartMessage() {
-        return addToCartMessageElement.getText();
-    }
-
-    public void clickOnAddToCartMessage()
+    public void clickOnIncreaseQuantityButton()
     {
-        addToCartMessageElement.click();
+        waitUtils.waitForElementClickable(increaseQuantityButtonElement).click();
+    }
+
+    public void clickOnDecreaseQuantityButton()
+    {
+        waitUtils.waitForElementClickable(decreaseQuantityButtonElement).click();
+    }
+
+    public void clickOnAddToCartButton()
+    {
+        waitUtils.waitForElementClickable(addToCartButtonElement).click();
+        waitUtils.waitForElementVisible(addToCartMessageElement).click();
+    }
+
+    public void clickOnAddToFavoritesButton()
+    {
+        waitUtils.waitForElementClickable(addToFavoritesButtonElement).click();
+    }
+
+    public String getAddToCartMessage()
+    {
+        return waitUtils.waitForElementVisible(addToCartMessageElement).getText();
     }
 }

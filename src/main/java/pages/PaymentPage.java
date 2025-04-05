@@ -9,14 +9,24 @@ import utils.PageBase;
 public class PaymentPage extends PageBase {
 
     @FindBy (id = "payment-method")
-    WebDriver paymentMethodsElement;
+    private WebElement paymentMethodsElement;
+
+    @FindBy (xpath = "//button[@data-test='finish']")
+    private WebElement confirmButton;
 
     public PaymentPage(WebDriver driver) {
         super(driver);
     }
 
     public void selectPaymentMethod(String paymentMethod) {
-        Select options = new Select((WebElement) paymentMethodsElement);
+        Select options = new Select(paymentMethodsElement);
         options.selectByVisibleText(paymentMethod);
     }
+
+    public void clickOnConfirmButton()
+    {
+        waitUtils.waitForElementClickable(confirmButton).click();
+    }
+
+
 }

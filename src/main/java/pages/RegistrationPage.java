@@ -36,71 +36,76 @@ public class RegistrationPage extends PageBase {
     private WebElement phoneFieldElement;
 
     @FindBy (id = "email")
-    public WebElement emailFieldElement;
+    private WebElement emailFieldElement;
 
     @FindBy (id = "password")
-    public WebElement passwordFieldElement;
-
-    @FindBy (xpath = "(button[class='btn btn-outline-secondary']")
-    public WebElement showPasswordButtonElement;
+    private WebElement passwordFieldElement;
 
     @FindBy (css = "button[data-test='register-submit']")
-    public WebElement registerButtonElement;
+    private WebElement registerButtonElement;
 
-    public RegistrationPage(WebDriver driver) {
+    public RegistrationPage(WebDriver driver)
+    {
         super(driver);
     }
 
-    public void enterFirstName(String firstName) {
-        firstNameFieldElement.sendKeys(firstName);
+    public void enterFirstName(String firstName)
+    {
+        waitUtils.waitForElementVisible(firstNameFieldElement).sendKeys(firstName);
     }
 
-    public void enterLastName(String lastName) {
-        lastNameFieldElement.sendKeys(lastName);
+    public void enterLastName(String lastName)
+    {
+        waitUtils.waitForElementVisible(lastNameFieldElement).sendKeys(lastName);
     }
 
-    public void selectDateOfBirth(String day, String month, String year) {
-        dateOfBirthFieldElement.sendKeys(month + "/" + day + "/" + year);
+    public void selectDateOfBirth(String day, String month, String year)
+    {
+        waitUtils.waitForElementVisible(dateOfBirthFieldElement).sendKeys(month + "/" + day + "/" + year);
     }
 
-    public void enterStreet(String street) {
-        streetFieldElement.sendKeys(street);
+    public void enterStreet(String street)
+    {
+        waitUtils.waitForElementVisible(streetFieldElement).sendKeys(street);
     }
 
-    public void enterPostalCode(String postalCode) {
-        postalCodeFieldElement.sendKeys(postalCode);
+    public void enterPostalCode(String postalCode)
+    {
+        waitUtils.waitForElementVisible(postalCodeFieldElement).sendKeys(postalCode);
     }
 
-    public void enterCity(String city) {
-        cityFieldElement.sendKeys(city);
+    public void enterCity(String city)
+    {
+        waitUtils.waitForElementVisible(cityFieldElement).sendKeys(city);
     }
 
     public void enterState(String state) {
         stateFieldElement.sendKeys(state);
     }
 
-    public void selectCountry(String country) {
+    public void selectCountry(String country)
+    {
         Select countryDropdown = new Select(countryFieldElement);
         countryDropdown.selectByVisibleText(country);
     }
 
-    public void enterPhone(String phone) {
-        phoneFieldElement.sendKeys(phone);
+    public void enterPhone(String phone)
+    {
+        waitUtils.waitForElementVisible(phoneFieldElement).sendKeys(phone);
     }
 
-    public void enterEmail(String email) {
-        emailFieldElement.sendKeys(email);
+    public void enterEmail(String email)
+    {
+        waitUtils.waitForElementVisible(emailFieldElement).sendKeys(email);
     }
 
-    public void enterPassword(String password) {
-        passwordFieldElement.sendKeys(password);
+    public void enterPassword(String password)
+    {
+        waitUtils.waitForElementVisible(passwordFieldElement).sendKeys(password);
     }
 
-    public void clickOnShowPasswordButton() {
-        showPasswordButtonElement.click();
-    }
-
-    public void clickOnRegisterButton() {
-        registerButtonElement.click();
+    public void clickOnRegisterButton()
+    {
+        waitUtils.waitForElementClickable(registerButtonElement).click();
     }
 }

@@ -8,16 +8,13 @@ import utils.PageBase;
 public class SignInPage extends PageBase {
 
     @FindBy (xpath = "//form[@data-test='login-form'] //input[@id='email']")
-    WebElement emailFieldElement;
+    private WebElement emailFieldElement;
 
     @FindBy (xpath = "//form[@data-test='login-form'] //input[@id='password']")
-    WebElement passwordFieldElement;
-
-    @FindBy (xpath = "//button[@class='btn btn-outline-secondary']")
-    WebElement showPasswordButtonElement;
+    private WebElement passwordFieldElement;
 
     @FindBy (css = "input[value='Login']")
-    public WebElement loginButtonElement;
+    private WebElement loginButtonElement;
 
     @FindBy (css = "a[data-test='register-link']")
     WebElement registerLinkElement;
@@ -29,24 +26,17 @@ public class SignInPage extends PageBase {
         super(driver);
     }
 
-    public void enterEmail(String email) {
-        emailFieldElement.sendKeys(email);
+    public void signIn(String email, String password)
+    {
+        waitUtils.waitForElementVisible(emailFieldElement).sendKeys(email);
+        waitUtils.waitForElementVisible(passwordFieldElement).sendKeys(password);
+        waitUtils.waitForElementClickable(loginButtonElement).click();
+        waitUtils.waitForElementVisible(myAccountElement);
     }
 
-    public void enterPassword(String password) {
-        passwordFieldElement.sendKeys(password);
-    }
-
-    public void clickOnShowPasswordButton() {
-        showPasswordButtonElement.click();
-    }
-
-    public void clickOnLoginButton() {
-        loginButtonElement.click();
-    }
-
-    public RegistrationPage clickOnRegisterLink() {
-        registerLinkElement.click();
+    public RegistrationPage clickOnRegisterLink()
+    {
+        waitUtils.waitForElementClickable(registerLinkElement).click();
 
         return new RegistrationPage(driver);
     }

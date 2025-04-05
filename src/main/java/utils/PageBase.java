@@ -5,66 +5,69 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.CartPage;
 import pages.SignInPage;
 
 public class PageBase {
 
     protected WebDriver driver;
+    protected WaitUtils waitUtils;
 
     @FindBy (linkText = "Home")
-    public WebElement homeLinkElement;
+    protected WebElement homeLinkElement;
 
     @FindBy (linkText = "Categories")
-    public WebElement categoriesDropdownElement;
+    protected WebElement categoriesDropdownElement;
 
     @FindBy (linkText = "Contact")
-    public WebElement contactLinkElement;
+    protected WebElement contactLinkElement;
 
     @FindBy (linkText = "Sign in")
-    public WebElement signInLinkElement;
+    protected WebElement signInLinkElement;
 
-    @FindBy (css = "a[aria-label='cart']")
-    public WebElement cartLinkElement;
+    @FindBy (css = "a[data-test='nav-cart'] fa-icon svg")
+    protected WebElement cartIconElement;
+
+    @FindBy (xpath = "//li[@role='menuitem']//a[@data-test='nav-menu']")
+    protected WebElement myAccountElement;
 
     public PageBase(WebDriver driver)
     {
         this.driver = driver;
+        this.waitUtils = new WaitUtils(driver);
 
         PageFactory.initElements(driver, this);
     }
 
     public void clickOnHomeLink()
     {
-        homeLinkElement.click();
+        waitUtils.waitForElementClickable(homeLinkElement).click();
     }
 
     public void clickOnCategoriesLink()
     {
-        categoriesDropdownElement.click();
+       waitUtils.waitForElementClickable( categoriesDropdownElement).click();
     }
 
     public void selectCategory(String category)
     {
-        driver.findElement(By.linkText(category)).click();
+        WebElement categoryElement = driver.findElement(By.linkText(category));
+        waitUtils.waitForElementClickable(categoryElement).click();
     }
 
     public void clickOnContactLink()
     {
-        contactLinkElement.click();
+        waitUtils.waitForElementClickable(contactLinkElement).click();
     }
 
     public SignInPage clickOnSignInLink()
     {
-        signInLinkElement.click();
+        waitUtils.waitForElementClickable(signInLinkElement).click();
 
         return new SignInPage(driver);
     }
 
-    public CartPage clickOnCartLink()
+    public void clickOnCartIcon()
     {
-        cartLinkElement.click();
-
-        return new CartPage(driver);
+        waitUtils.waitForElementClickable(cartIconElement).click();
     }
 }

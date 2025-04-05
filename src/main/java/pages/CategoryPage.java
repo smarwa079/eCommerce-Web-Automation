@@ -15,6 +15,6 @@ public class CategoryPage extends CommonPage {
 
     public String getPageTitle()
     {
-        return pageTitle.getText();
+        return waitUtils.waitForElementVisible(pageTitle).getText();
     }
 }

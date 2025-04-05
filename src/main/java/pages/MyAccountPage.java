@@ -8,13 +8,13 @@ import utils.PageBase;
 public class MyAccountPage extends PageBase {
 
     @FindBy (css = "a[routerlink='favorites']")
-    WebElement favoritesLinkElement;
+    private WebElement favoritesLinkElement;
 
     @FindBy (css = "a[routerlink='profile']")
-    WebElement profileLinkElement;
+    private WebElement profileLinkElement;
 
     @FindBy (css = "a[routerlink='invoices']")
-    WebElement invoicesLinkElement;
+    private WebElement invoicesLinkElement;
 
     @FindBy (css = "a[routerlink='messages']")
     WebElement messagesLinkElement;
@@ -23,19 +23,23 @@ public class MyAccountPage extends PageBase {
         super(driver);
     }
 
-    public void clickOnFavoritesLink() {
-        favoritesLinkElement.click();
+    public void clickOnFavoritesLink()
+    {
+        waitUtils.waitForElementClickable(favoritesLinkElement).click();
     }
 
-    public void clickOnProfileLink() {
-        profileLinkElement.click();
+    public void clickOnProfileLink()
+    {
+        waitUtils.waitForElementClickable(profileLinkElement).click();
     }
 
-    public void clickOnInvoicesLink() {
-        invoicesLinkElement.click();
+    public void clickOnInvoicesLink()
+    {
+        waitUtils.waitForElementClickable(invoicesLinkElement).click();
     }
 
-    public void clickOnMessagesLink() {
-        messagesLinkElement.click();
+    public void clickOnMessagesLink()
+    {
+        waitUtils.waitForElementClickable(messagesLinkElement).click();
     }
 }

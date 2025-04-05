@@ -10,10 +10,10 @@ import java.util.List;
 public class Favorites extends PageBase {
 
     @FindBy (xpath = "//h5[@data-test='product-name']")
-    List<WebElement> productsNamesList;
+    private List<WebElement> productsNamesList;
 
     @FindBy (xpath = "//button[@data-test='delete']")
-    List<WebElement> deleteButtonsList;
+    private List<WebElement> deleteButtonsList;
 
     public Favorites(WebDriver driver) {
         super(driver);
@@ -32,7 +32,7 @@ public class Favorites extends PageBase {
 
         int index = product.indexOf(productName);
 
-        deleteButtonsList.get(index).click();
+        waitUtils.waitForElementClickable(deleteButtonsList.get(index)).click();
     }
 
 }

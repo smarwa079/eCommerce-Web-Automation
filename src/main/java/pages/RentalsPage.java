@@ -18,10 +18,12 @@ public class RentalsPage extends PageBase {
 
     public ProductDetailsPage selectRentalProduct(String productName)
     {
-        rentalsLists.stream()
+        WebElement rentalElement= rentalsLists.stream()
                 .filter(rent -> rent.getText().equalsIgnoreCase(productName))
                 .findFirst()
-                .ifPresent(element -> element.click());
+                .get();
+
+        waitUtils.waitForElementClickable(rentalElement).click();
 
         return new ProductDetailsPage(driver);
     }

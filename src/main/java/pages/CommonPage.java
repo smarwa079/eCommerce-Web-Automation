@@ -11,49 +11,63 @@ import java.util.List;
 public class CommonPage extends PageBase {
 
     @FindBy (className = "card")
-    List<WebElement> productsList;
+    protected List<WebElement> productsList;
 
     @FindBy(xpath = "//input[@name='category_id']/parent::label")
-    List<WebElement> categoriesList;
+    protected List<WebElement> categoriesList;
 
     @FindBy (xpath = "//input[@name='brand_id']/parent::label")
-    List<WebElement> brandsList;
+    protected List<WebElement> brandsList;
 
     @FindBy (xpath = "//a[@aria-label='Next']/parent::li")
-    WebElement nextPageButtonElement;
+    protected WebElement nextPageButtonElement;
 
     @FindBy (xpath = "//a[@aria-label='Previous']/parent::li")
-    WebElement previousPageButtonElement;
+    protected WebElement previousPageButtonElement;
 
     public CommonPage(WebDriver driver) {
         super(driver);
     }
 
-    public void filterProductsByCategory(String category) {
-        categoriesList.stream().filter(categoryElement -> categoryElement.getText().equals(category)).findFirst().get().click();
+    public void filterProductsByCategory(String category)
+    {
+        WebElement categoryCheckbox= categoriesList.stream()
+                .filter(categoryElement -> categoryElement.getText().equals(category))
+                .findFirst()
+                .get();
+
+        waitUtils.waitForElementClickable(categoryCheckbox).click();
     }
 
-    public void filterProductsByBrand(String brand) {
-        brandsList.stream()
+    public void filterProductsByBrand(String brand)
+    {
+        WebElement brandCheckbox = brandsList.stream()
                 .filter(brandElement -> brandElement.getText().equalsIgnoreCase(brand))
                 .findFirst()
-                .ifPresent(element -> element.click());
+                .get();
+
+        waitUtils.waitForElementClickable(brandCheckbox).click();
     }
 
-    public ProductDetailsPage selectProduct(String productName) {
-        productsList.stream()
+    public ProductDetailsPage selectProduct(String productName)
+    {
+        WebElement productElement = productsList.stream()
                 .filter(product -> product.findElement(By.tagName("h5")).getText().equalsIgnoreCase(productName))
                 .findFirst()
-                .ifPresent(element -> element.click());
+                .get();
+
+        waitUtils.waitForElementClickable(productElement).click();
 
         return new ProductDetailsPage(driver);
     }
 
-    public void clickOnNextPageButton() {
-        nextPageButtonElement.click();
+    public void clickOnNextPageButton()
+    {
+        waitUtils.waitForElementClickable(nextPageButtonElement).click();
     }
 
-    public void clickOnPreviousPageButton() {
-        previousPageButtonElement.click();
+    public void clickOnPreviousPageButton()
+    {
+        waitUtils.waitForElementClickable(previousPageButtonElement).click();
     }
 }

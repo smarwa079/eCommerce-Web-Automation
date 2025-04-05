@@ -8,48 +8,48 @@ import utils.PageBase;
 public class BillingAddressPage extends PageBase {
 
     @FindBy (id = "street")
-    WebElement streetFieldElement;
+    private WebElement streetFieldElement;
 
     @FindBy (id = "city")
-    WebElement cityFieldElement;
+    private WebElement cityFieldElement;
 
     @FindBy (id = "state")
-    WebElement stateFieldElement;
+    private WebElement stateFieldElement;
 
     @FindBy (id = "country")
-    WebElement countryFieldElement;
+    private WebElement countryFieldElement;
 
     @FindBy (id = "postal_code")
-    WebElement postCodeFieldElement;
+    private WebElement postCodeFieldElement;
 
-    @FindBy (xpath = "//button[text()='Proceed to checkout ']")
-    WebElement proceedToCheckoutButtonElement;
+    @FindBy (xpath = "//button[@data-test='proceed-3']")
+    private WebElement proceedToCheckoutButtonElement;
 
     public BillingAddressPage(WebDriver driver) {
         super(driver);
     }
 
     public void enterStreet(String street) {
-        streetFieldElement.sendKeys(street);
+        waitUtils.waitForElementVisible(streetFieldElement).sendKeys(street);
     }
 
     public void enterCity(String city) {
-        cityFieldElement.sendKeys(city);
+        waitUtils.waitForElementVisible(cityFieldElement).sendKeys(city);
     }
 
     public void enterState(String state) {
-        stateFieldElement.sendKeys(state);
+        waitUtils.waitForElementVisible(stateFieldElement).sendKeys(state);
     }
 
     public void enterCountry(String country) {
-        countryFieldElement.sendKeys(country);
+        waitUtils.waitForElementVisible(countryFieldElement).sendKeys(country);
     }
 
     public void enterPostCode(String postCode) {
-        postCodeFieldElement.sendKeys(postCode);
+        waitUtils.waitForElementVisible(postCodeFieldElement).sendKeys(postCode);
     }
 
     public void clickOnProceedToCheckoutButton() {
-        proceedToCheckoutButtonElement.click();
+        waitUtils.waitForElementClickable(proceedToCheckoutButtonElement).click();
     }
 }

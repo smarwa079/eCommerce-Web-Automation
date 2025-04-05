@@ -9,31 +9,27 @@ import java.util.List;
 public class HomePage extends CommonPage {
 
     @FindBy (id = "search-query")
-    WebElement searchFieldElement;
+    private WebElement searchFieldElement;
 
     @FindBy (xpath = "//button[text()='Search']")
-    WebElement searchButtonElement;
+    private WebElement searchButtonElement;
 
     @FindBy (xpath = "//button[@data-test='search-reset']")
-    WebElement resetSearchButtonElement;
+    private WebElement resetSearchButtonElement;
 
-    public HomePage(WebDriver driver) {
+    public HomePage(WebDriver driver)
+    {
         super(driver);
     }
 
-    public void enterSearchQuery(String searchQuery) {
-        searchFieldElement.sendKeys(searchQuery);
+    public void enterSearchForProduct(String searchQuery)
+    {
+        waitUtils.waitForElementVisible(searchFieldElement).sendKeys(searchQuery);
+        waitUtils.waitForElementClickable(searchButtonElement).click();
     }
 
-    public void clickOnSearchButton() {
-        searchButtonElement.click();
-    }
-
-    public List<WebElement> getSearchResults() {
-        return productsList;
-    }
-
-    public void clickOnResetSearchButton() {
-        resetSearchButtonElement.click();
+    public void clickOnResetSearchButton()
+    {
+        waitUtils.waitForElementClickable(resetSearchButtonElement).click();
     }
 }
