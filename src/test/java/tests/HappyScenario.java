@@ -17,14 +17,14 @@ public class HappyScenario extends BaseTest {
         detailsPage.clickOnAddToCartButton();
 
         String addToCartMessage = detailsPage.getAddToCartMessage();
-        System.out.println(addToCartMessage);
-        //Assert.assertEquals(addToCartMessage, "Product added to shopping cart.");
+
+        Assert.assertEquals(addToCartMessage, "Product added to shopping cart.");
 
         detailsPage.clickOnCartIcon();
 
         CartPage cartPage = new CartPage(driver);
 
-        //Assert.assertTrue(cartPage.findCartItem("Slip Joint Pliers"));
+        Assert.assertTrue(cartPage.findCartItem("Slip Joint Pliers"));
 
         cartPage.clickOnProceedToCheckoutFirstButton();
 
@@ -41,13 +41,13 @@ public class HappyScenario extends BaseTest {
         registrationPage.enterState("cairo");
         registrationPage.selectCountry("Egypt");
         registrationPage.enterPhone("01235675901");
-        registrationPage.enterEmail("marwas980@hiyah000.com");
+        registrationPage.enterEmail("smarwas7980@hiyah000.com");
         registrationPage.enterPassword("m_Salah1234");
 
         registrationPage.clickOnRegisterButton();
 
 
-        signInPage.signIn("marwas980@hiyah000.com", "m_Salah1234");
+        signInPage.signIn("smarwas7980@hiyah000.com", "m_Salah1234");
 
         signInPage.clickOnCartIcon();
 
