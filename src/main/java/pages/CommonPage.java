@@ -3,27 +3,17 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import utils.PageBase;
 
 import java.util.List;
 
 public class CommonPage extends PageBase {
 
-    @FindBy (className = "card")
-    protected List<WebElement> productsList;
-
-    @FindBy(xpath = "//input[@name='category_id']/parent::label")
-    protected List<WebElement> categoriesList;
-
-    @FindBy (xpath = "//input[@name='brand_id']/parent::label")
-    protected List<WebElement> brandsList;
-
-    @FindBy (xpath = "//a[@aria-label='Next']/parent::li")
-    protected WebElement nextPageButtonElement;
-
-    @FindBy (xpath = "//a[@aria-label='Previous']/parent::li")
-    protected WebElement previousPageButtonElement;
+    By products = By.className("card");
+    By categories = By.xpath("//input[@name='category_id']/parent::label");
+    By brands = By.xpath("//input[@name='brand_id']/parent::label");
+    By nextPageButton = By.xpath("//a[@aria-label='Next']/parent::li");
+    By previousPageButton = By.xpath("//a[@aria-label='Previous']/parent::li");
 
     public CommonPage(WebDriver driver) {
         super(driver);
@@ -31,6 +21,8 @@ public class CommonPage extends PageBase {
 
     public void filterProductsByCategory(String category)
     {
+        List<WebElement> categoriesList = driver.findElements(categories);
+
         WebElement categoryCheckbox= categoriesList.stream()
                 .filter(categoryElement -> categoryElement.getText().equals(category))
                 .findFirst()
@@ -41,6 +33,8 @@ public class CommonPage extends PageBase {
 
     public void filterProductsByBrand(String brand)
     {
+        List<WebElement> brandsList = driver.findElements(brands);
+
         WebElement brandCheckbox = brandsList.stream()
                 .filter(brandElement -> brandElement.getText().equalsIgnoreCase(brand))
                 .findFirst()
@@ -51,6 +45,8 @@ public class CommonPage extends PageBase {
 
     public ProductDetailsPage selectProduct(String productName)
     {
+        List<WebElement> productsList = driver.findElements(products);
+
         WebElement productElement = productsList.stream()
                 .filter(product -> product.findElement(By.tagName("h5")).getText().equalsIgnoreCase(productName))
                 .findFirst()
@@ -63,11 +59,11 @@ public class CommonPage extends PageBase {
 
     public void clickOnNextPageButton()
     {
-        waitUtils.waitForElementClickable(nextPageButtonElement).click();
+        waitUtils.waitForElementClickable(nextPageButton).click();
     }
 
     public void clickOnPreviousPageButton()
     {
-        waitUtils.waitForElementClickable(previousPageButtonElement).click();
+        waitUtils.waitForElementClickable(previousPageButton).click();
     }
 }

@@ -1,29 +1,18 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import utils.PageBase;
 
 public class ProductDetailsPage extends PageBase {
 
-    @FindBy (css = "h1[data-test='product-name']")
-    WebElement productNameElement;
-
-    @FindBy (className = "btn-increase-quantity")
-    WebElement increaseQuantityButtonElement;
-
-    @FindBy (className = "btn-decrease-quantity")
-    WebElement decreaseQuantityButtonElement;
-
-    @FindBy (xpath = "//button[@data-test='add-to-cart']")
-    WebElement addToCartButtonElement;
-
-    @FindBy (id = "btn-add-to-favorites")
-    WebElement addToFavoritesButtonElement;
-
-    @FindBy (xpath = "//div[@role='alert']")
-    WebElement addToCartMessageElement;
+    By productName = By.cssSelector("h1[data-test='product-name']");
+    By increaseQuantityButton = By.className("btn-increase-quantity");
+    By decreaseQuantityButton = By.className("btn-decrease-quantity");
+    By addToCartButton = By.xpath("//button[@data-test='add-to-cart']");
+    By addToFavoritesButton = By.id("btn-add-to-favorites");
+    By addToCartMessage = By.xpath("//div[@role='alert']");
 
     public ProductDetailsPage(WebDriver driver)
     {
@@ -32,32 +21,33 @@ public class ProductDetailsPage extends PageBase {
 
     public String getProductName()
     {
+        WebElement productNameElement = driver.findElement(productName);
         return productNameElement.getText();
     }
 
     public void clickOnIncreaseQuantityButton()
     {
-        waitUtils.waitForElementClickable(increaseQuantityButtonElement).click();
+        waitUtils.waitForElementClickable(increaseQuantityButton).click();
     }
 
     public void clickOnDecreaseQuantityButton()
     {
-        waitUtils.waitForElementClickable(decreaseQuantityButtonElement).click();
+        waitUtils.waitForElementClickable(decreaseQuantityButton).click();
     }
 
     public void clickOnAddToCartButton()
     {
-        waitUtils.waitForElementClickable(addToCartButtonElement).click();
-        waitUtils.waitForElementVisible(addToCartMessageElement).click();
+        waitUtils.waitForElementClickable(addToCartButton).click();
+        waitUtils.waitForElementVisible(addToCartMessage).click();
     }
 
     public void clickOnAddToFavoritesButton()
     {
-        waitUtils.waitForElementClickable(addToFavoritesButtonElement).click();
+        waitUtils.waitForElementClickable(addToFavoritesButton).click();
     }
 
     public String getAddToCartMessage()
     {
-        return waitUtils.waitForElementVisible(addToCartMessageElement).getText();
+        return waitUtils.waitForElementVisible(addToCartMessage).getText();
     }
 }

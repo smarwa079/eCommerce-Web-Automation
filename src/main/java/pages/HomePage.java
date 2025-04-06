@@ -1,21 +1,15 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
 
 public class HomePage extends CommonPage {
 
-    @FindBy (id = "search-query")
-    private WebElement searchFieldElement;
-
-    @FindBy (xpath = "//button[text()='Search']")
-    private WebElement searchButtonElement;
-
-    @FindBy (xpath = "//button[@data-test='search-reset']")
-    private WebElement resetSearchButtonElement;
+    By searchField = By.id("search-query");
+    By searchButton = By.xpath("//button[text()='Search']");
+    By resetSearchButton = By.xpath("//button[@data-test='search-reset']");
 
     public HomePage(WebDriver driver)
     {
@@ -24,12 +18,13 @@ public class HomePage extends CommonPage {
 
     public void enterSearchForProduct(String searchQuery)
     {
-        waitUtils.waitForElementVisible(searchFieldElement).sendKeys(searchQuery);
-        waitUtils.waitForElementClickable(searchButtonElement).click();
+        WebElement searchFieldElement = driver.findElement(searchField);
+        searchFieldElement.sendKeys(searchQuery);
+        waitUtils.waitForElementClickable(searchButton).click();
     }
 
     public void clickOnResetSearchButton()
     {
-        waitUtils.waitForElementClickable(resetSearchButtonElement).click();
+        waitUtils.waitForElementClickable(resetSearchButton).click();
     }
 }

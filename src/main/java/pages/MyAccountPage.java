@@ -1,23 +1,16 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import utils.PageBase;
 
 public class MyAccountPage extends PageBase {
 
-    @FindBy (css = "a[routerlink='favorites']")
-    private WebElement favoritesLinkElement;
-
-    @FindBy (css = "a[routerlink='profile']")
-    private WebElement profileLinkElement;
-
-    @FindBy (css = "a[routerlink='invoices']")
-    private WebElement invoicesLinkElement;
-
-    @FindBy (css = "a[routerlink='messages']")
-    WebElement messagesLinkElement;
+    By favoritesLink = By.cssSelector("a[routerlink='favorites']");
+    By profileLink = By.cssSelector("a[routerlink='profile']");
+    By invoicesLink = By.cssSelector("a[routerlink='invoices']");
+    By messagesLink = By.cssSelector("a[routerlink='messages']");
 
     public MyAccountPage(WebDriver driver) {
         super(driver);
@@ -25,21 +18,25 @@ public class MyAccountPage extends PageBase {
 
     public void clickOnFavoritesLink()
     {
-        waitUtils.waitForElementClickable(favoritesLinkElement).click();
+        WebElement favoritesLinkElement = driver.findElement(favoritesLink);
+        favoritesLinkElement.click();
     }
 
     public void clickOnProfileLink()
     {
-        waitUtils.waitForElementClickable(profileLinkElement).click();
+        WebElement profileLinkElement = driver.findElement(profileLink);
+        profileLinkElement.click();
     }
 
     public void clickOnInvoicesLink()
     {
-        waitUtils.waitForElementClickable(invoicesLinkElement).click();
+        WebElement invoicesLinkElement = driver.findElement(invoicesLink);
+        invoicesLinkElement.click();
     }
 
     public void clickOnMessagesLink()
     {
-        waitUtils.waitForElementClickable(messagesLinkElement).click();
+        WebElement messagesLinkElement = driver.findElement(messagesLink);
+        messagesLinkElement.click();
     }
 }

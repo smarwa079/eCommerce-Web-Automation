@@ -1,32 +1,70 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import utils.PageBase;
 
 public class PaymentPage extends PageBase {
 
-    @FindBy (id = "payment-method")
-    private WebElement paymentMethodsElement;
+    By paymentMethods = By.id("payment-method");
+    By bankNameField = By.xpath("//input[@data-test='bank_name']");
+    By bankNameErrorMessage = By.xpath("//input[@data-test='bank_name']/following-sibling::div[1]");
+    By accountNameField = By.xpath("//input[@data-test='account_name']");
+    By accountNameErrorMessage = By.xpath("//input[@data-test='bank_name']/following-sibling::div[2]");
+    By accountNumberField = By.xpath("//input[@data-test='account_number']");
+    By accountNumberErrorMessage = By.xpath("//input[@data-test='bank_name']/following-sibling::div[3]");
+    By confirmButton = By.xpath("//button[@data-test='finish']");
+    By successPaymentMessage = By.xpath("//div[@data-test='payment-success-message']");
 
-    @FindBy (xpath = "//button[@data-test='finish']")
-    private WebElement confirmButton;
+    private WebElement paymentMethodsElement;
 
     public PaymentPage(WebDriver driver) {
         super(driver);
     }
 
-    public void selectPaymentMethod(String paymentMethod) {
+    public void payCashOnDelivery()
+    {
+        paymentMethodsElement = driver.findElement(paymentMethods);
         Select options = new Select(paymentMethodsElement);
-        options.selectByVisibleText(paymentMethod);
+        options.selectByVisibleText("Cash on Delivery");
+    }
+
+    public void payUsingBankTransfer(String bankName, String accountName, String accountNumber)
+    {
+        paymentMethodsElement = driver.findElement(paymentMethods);
+        Select options = new Select(paymentMethodsElement);
+        options.selectByVisibleText("Bank Transfer");
+
+        waitUtils.waitForElementVisible(bankNameField).sendKeys(bankName);
+
+        WebElement accountNameFieldElement = driver.findElement(accountNameField);
+        accountNameFieldElement.sendKeys(accountName);
+
+        WebElement accountNumberFieldElement = driver.findElement(accountNumberField);
+        accountNumberFieldElement.sendKeys(accountNumber);
+    }
+
+    public String getBankNameErrorMessage() {
+        return waitUtils.waitForElementVisible(bankNameErrorMessage).getText();
+    }
+
+    public String getAccountNameErrorMessage() {
+        return waitUtils.waitForElementVisible(accountNameErrorMessage).getText();
+    }
+
+    public String getAccountNumberErrorMessage() {
+        return waitUtils.waitForElementVisible(accountNumberErrorMessage).getText();
+    }
+
+    public String getSuccessPaymentMessage() {
+        return waitUtils.waitForElementVisible(successPaymentMessage).getText();
     }
 
     public void clickOnConfirmButton()
     {
         waitUtils.waitForElementClickable(confirmButton).click();
     }
-
 
 }

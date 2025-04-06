@@ -1,10 +1,9 @@
 package tests;
 
-import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.BaseTest;
-import utils.WaitUtils;
 
 
 public class HappyScenario extends BaseTest {
@@ -19,10 +18,13 @@ public class HappyScenario extends BaseTest {
 
         String addToCartMessage = detailsPage.getAddToCartMessage();
         System.out.println(addToCartMessage);
+        //Assert.assertEquals(addToCartMessage, "Product added to shopping cart.");
 
         detailsPage.clickOnCartIcon();
 
         CartPage cartPage = new CartPage(driver);
+
+        //Assert.assertTrue(cartPage.findCartItem("Slip Joint Pliers"));
 
         cartPage.clickOnProceedToCheckoutFirstButton();
 
@@ -58,7 +60,7 @@ public class HappyScenario extends BaseTest {
         addressPage.clickOnProceedToCheckoutButton();
 
         PaymentPage paymentPage = new PaymentPage(driver);
-        paymentPage.selectPaymentMethod("Cash on Delivery");
+        paymentPage.payCashOnDelivery();
         paymentPage.clickOnConfirmButton();
 
     }

@@ -22,10 +22,6 @@ public class WaitUtils {
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void waitForElementInvisible(WebElement element) {
-        wait.until(ExpectedConditions.invisibilityOf(element));
-    }
-
     public WebElement waitForElementVisible(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }

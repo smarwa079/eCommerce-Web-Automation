@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,48 +10,53 @@ import java.util.List;
 
 public class CartPage extends PageBase {
 
-    @FindBy (xpath = "//table[@class='table table-hover']/tbody/tr/td[1]")
-    private List<WebElement>  cartItemsList;
+    By cartItems = By.xpath("//table[@class='table table-hover']/tbody/tr/td[1]");
+    By quantityInputs = By.xpath("//input[@data-test='product-quantity']");
+    By removeButtons = By.cssSelector(".btn.btn-danger");
+    By proceedToCheckout1 = By.xpath("//button[@data-test='proceed-1']");
+    By proceedToCheckout2 = By.xpath("//button[@data-test='proceed-2']");
 
-    @FindBy (xpath = "//input[@data-test='product-quantity']")
-    private List<WebElement> quantityInputsList;
-
-    @FindBy (css = ".btn.btn-danger")
-    private List<WebElement> removeButtonsList;
-
-    @FindBy(xpath = "//button[@data-test='proceed-1']")
-    private WebElement proceedToCheckoutElement1;
-
-    @FindBy(xpath = "//button[@data-test='proceed-2']")
-    private WebElement proceedToCheckoutElement2;
-
-    @FindBy(xpath = "//td[@data-test='cart-total']")
-    private WebElement totalPriceElement;
+    By totalPrice = By.xpath("//td[@data-test='cart-total']");
 
     public CartPage(WebDriver driver)
     {
         super(driver);
     }
 
+    public boolean findCartItem(String productName)
+    {
+        List<WebElement>  cartItemsList = driver.findElements(cartItems);
+        return cartItemsList.stream().anyMatch(i -> i.getText().equals(productName));
+    }
+
     public int getCartItemsCount()
     {
+        List<WebElement>  cartItemsList = driver.findElements(cartItems);
         return cartItemsList.size();
     }
 
     public void updateProductQuantity(String productName, int quantity)
     {
-        List<WebElement> items = cartItemsList.stream().filter(i -> i.getText().equalsIgnoreCase(productName)).toList();
+        List<WebElement>  cartItemsList = driver.findElements(cartItems);
+
+        List<WebElement> items = cartItemsList.stream().filter(i -> i.getText().equals(productName)).toList();
 
         int index = items.indexOf(productName);
+
+        List<WebElement> quantityInputsList = driver.findElements(quantityInputs);
 
         waitUtils.waitForElementVisible(quantityInputsList.get(index)).sendKeys(Integer.toString(quantity));
     }
 
     public void clickOnRemoveProductButton(String productName)
     {
-        List<WebElement> items = cartItemsList.stream().filter(i -> i.getText().equalsIgnoreCase(productName)).toList();
+        List<WebElement>  cartItemsList = driver.findElements(cartItems);
+
+        List<WebElement> items = cartItemsList.stream().filter(i -> i.getText().equals(productName)).toList();
 
         int index = items.indexOf(productName);
+
+        List<WebElement> removeButtonsList = driver.findElements(removeButtons);
 
         waitUtils.waitForElementClickable(removeButtonsList.get(index)).click();
 
@@ -58,15 +64,15 @@ public class CartPage extends PageBase {
 
     public double getTotalPrice()
     {
-        return Double.parseDouble(waitUtils.waitForElementVisible(totalPriceElement).getText().replace("$", ""));
+        return Double.parseDouble(waitUtils.waitForElementVisible(totalPrice).getText().replace("$", ""));
     }
 
     public void clickOnProceedToCheckoutFirstButton() {
-        waitUtils.waitForElementClickable(proceedToCheckoutElement1).click();
+        waitUtils.waitForElementClickable(proceedToCheckout1).click();
     }
 
     public void clickOnProceedToCheckoutSecondButton() {
-        waitUtils.waitForElementClickable(proceedToCheckoutElement2).click();
+        waitUtils.waitForElementClickable(proceedToCheckout2).click();
     }
 
 }
