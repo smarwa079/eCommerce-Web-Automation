@@ -12,6 +12,7 @@ public class ProductDetailsPage extends PageBase {
     By decreaseQuantityButton = By.className("btn-decrease-quantity");
     By addToCartButton = By.xpath("//button[@data-test='add-to-cart']");
     By addToFavoritesButton = By.id("btn-add-to-favorites");
+    //
     By addToCartMessage = By.xpath("//div[@role='alert']");
 
     public ProductDetailsPage(WebDriver driver)
