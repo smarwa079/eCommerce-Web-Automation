@@ -9,14 +9,18 @@ import java.util.List;
 
 public class CommonPage extends PageBase {
 
-    By products = By.className("card");
+    By products = By.xpath("//h5[@data-test='product-name']");
     By categories = By.xpath("//input[@name='category_id']/parent::label");
     By brands = By.xpath("//input[@name='brand_id']/parent::label");
     By nextPageButton = By.xpath("//a[@aria-label='Next']/parent::li");
     By previousPageButton = By.xpath("//a[@aria-label='Previous']/parent::li");
 
-    public CommonPage(WebDriver driver) {
+    public List<WebElement> productsList;
+
+    public CommonPage(WebDriver driver)
+    {
         super(driver);
+        productsList = driver.findElements(products);
     }
 
     public void filterProductsByCategory(String category)
@@ -45,10 +49,8 @@ public class CommonPage extends PageBase {
 
     public ProductDetailsPage selectProduct(String productName)
     {
-        List<WebElement> productsList = driver.findElements(products);
-
         WebElement productElement = productsList.stream()
-                .filter(product -> product.findElement(By.tagName("h5")).getText().equalsIgnoreCase(productName))
+                .filter(product -> product.getText().equalsIgnoreCase(productName))
                 .findFirst()
                 .get();
 

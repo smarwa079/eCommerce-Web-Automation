@@ -1,6 +1,8 @@
 package pages;
 
+import net.bytebuddy.asm.Advice;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import utils.PageBase;
@@ -49,6 +51,7 @@ public class CartPage extends PageBase {
         {
             List<WebElement> quantityInputsList = driver.findElements(quantityInputs);
             waitUtils.waitForElementVisible(quantityInputsList.get(index)).sendKeys(Integer.toString(quantity));
+            waitUtils.waitForElementVisible(quantityInputsList.get(index)).sendKeys(Keys.ENTER);
         }
     }
 

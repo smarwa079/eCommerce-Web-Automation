@@ -41,10 +41,10 @@ public class BaseTest {
 
     }
 
-    @AfterSuite
-    public void shutDown()
-    {
-        driver.quit();
-    }
+//    @AfterSuite
+//    public void shutDown()
+//    {
+//        driver.quit();
+//    }
 
 }
