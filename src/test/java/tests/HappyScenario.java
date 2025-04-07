@@ -3,6 +3,7 @@ package tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.BaseTest;
@@ -16,6 +17,8 @@ public class HappyScenario extends BaseTest {
     HomePage homePage;
     CartPage cartPage;
     ProductDetailsPage productDetailsPage;
+    SignInPage signInPage;
+    BillingAddressPage addressPage;
 
     @Test(priority = 1)
     public void searchProductName() {
@@ -27,6 +30,7 @@ public class HappyScenario extends BaseTest {
         for(WebElement product : driver.findElements(By.xpath("//div[@class='col-md-9'] //div[@class='container']"))) {
             String productTitle = product.getText().toLowerCase();
             Assert.assertTrue(productTitle.contains("hammer"), "Product '" + productTitle + "' does not appear to be a hammer");
+
         }
 
     }
@@ -55,65 +59,56 @@ public class HappyScenario extends BaseTest {
         cartPage.updateQuantity("Claw Hammer", 2);
         double updatedPrice =cartPage.getTotalPrice();
         System.out.println(updatedPrice);
+        Assert.assertEquals(updatedPrice, 22.96, "Updated price is not correct");
+        cartPage.clickOnProceedToCheckoutFirstButton();
+    }
 
+    @DataProvider(name = "registrationData")
+    public Object[][] provideRegistrationData() {
+        return new Object[][] {
+         {"marwa", "salah", "27", "8", "1996", "123 main st.", "12345", "Zamalek", "cairo",
+                 "Egypt", "01235675901", "marwass80@hiyahs000.com", "m_Salah1234"}
+        };
+        }
+
+     @Test(priority = 4, dataProvider = "registrationData")
+    public void cartSignIn(String firstName, String lastName, String day, String month, String year, String street, String postalCode, String city, String state,String country, String phone, String email, String password) {
+    signInPage = new SignInPage(driver);
+    cartPage = new CartPage(driver);
+
+    RegistrationPage registrationPage = signInPage.clickOnRegisterLink();
+    registrationPage.enterFirstName(firstName);
+    registrationPage.enterLastName(lastName);
+    registrationPage.selectDateOfBirth(day, month, year);
+    registrationPage.enterStreet(street);
+    registrationPage.enterPostalCode(postalCode);
+    registrationPage.enterCity(city);
+    registrationPage.enterState(state);
+    registrationPage.selectCountry(country);
+    registrationPage.enterPhone(phone);
+    registrationPage.enterEmail(email);
+    registrationPage.enterPassword(password);
+    registrationPage.clickOnRegisterButton();
+    signInPage.signIn(email, password);
+    signInPage.clickOnCartIcon();
+
+    cartPage.clickOnProceedToCheckoutFirstButton();
+    cartPage.clickOnProceedToCheckoutSecondButton();
+
+    }
+    @Test(priority = 5)
+    public void billingAddress() {
+        addressPage = new BillingAddressPage(driver);
+        addressPage.clickOnProceedToCheckoutButton();
+    }
+
+    @Test(priority = 6)
+    public void payment() {
+        PaymentPage paymentPage = new PaymentPage(driver);
+        paymentPage.payCashOnDelivery();
+        paymentPage.clickOnConfirmButton();
+        Assert.assertEquals(paymentPage.getSuccessPaymentMessage(), "Payment was successful");
     }
 
 
-
-//    @Test
-//    public void EndToEndTest() throws InterruptedException {
-//
-//        HomePage homePage = new HomePage(driver);
-//
-//        ProductDetailsPage detailsPage = homePage.selectProduct("Slip Joint Pliers");
-//        detailsPage.clickOnAddToCartButton();
-//
-//        String addToCartMessage = detailsPage.getAddToCartMessage();
-//        System.out.println(addToCartMessage);
-//        //Assert.assertEquals(addToCartMessage, "Product added to shopping cart.");
-//
-//        detailsPage.clickOnCartIcon();
-//
-//        CartPage cartPage = new CartPage(driver);
-//
-//        //Assert.assertTrue(cartPage.findCartItem("Slip Joint Pliers"));
-//
-//        cartPage.clickOnProceedToCheckoutFirstButton();
-//
-//        SignInPage signInPage = new SignInPage(driver);
-//
-//        RegistrationPage registrationPage = signInPage.clickOnRegisterLink();
-//
-//        registrationPage.enterFirstName("marwa");
-//        registrationPage.enterLastName("salah");
-//        registrationPage.selectDateOfBirth("27", "8", "1996");
-//        registrationPage.enterStreet("123 main st.");
-//        registrationPage.enterPostalCode("12345");
-//        registrationPage.enterCity("Zamalek");
-//        registrationPage.enterState("cairo");
-//        registrationPage.selectCountry("Egypt");
-//        registrationPage.enterPhone("01235675901");
-//        registrationPage.enterEmail("marwas980@hiyah000.com");
-//        registrationPage.enterPassword("m_Salah1234");
-//
-//        registrationPage.clickOnRegisterButton();
-//
-//
-//        signInPage.signIn("marwas980@hiyah000.com", "m_Salah1234");
-//
-//        signInPage.clickOnCartIcon();
-//
-//        cartPage.clickOnProceedToCheckoutFirstButton();
-//
-//        cartPage.clickOnProceedToCheckoutSecondButton();
-//
-//        BillingAddressPage addressPage = new BillingAddressPage(driver);
-//
-//        addressPage.clickOnProceedToCheckoutButton();
-//
-//        PaymentPage paymentPage = new PaymentPage(driver);
-//        paymentPage.payCashOnDelivery();
-//        paymentPage.clickOnConfirmButton();
-//
-//    }
 }
