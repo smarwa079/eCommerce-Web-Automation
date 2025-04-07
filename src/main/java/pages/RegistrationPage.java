@@ -13,7 +13,7 @@ public class RegistrationPage extends PageBase {
     By lastNameField = By.id("last_name");
     By lastNameErrorMessage = By.xpath("//div[@data-test='last-name-error']/div");
     By dateOfBirthField = By.id("dob");
-    By dateOfBirthErrorMessage = By.xpath("//div[@data-test='dob-error']/div");
+    By dateOfBirthErrorMessage = By.xpath("//div[@class='alert alert-danger']");
     By streetField= By.id("street");
     By streetErrorMessage = By.xpath("//div[@data-test='street-error']/div");
     By postalCodeField = By.id("postal_code");
