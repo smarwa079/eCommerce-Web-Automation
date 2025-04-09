@@ -20,8 +20,9 @@ public class ForgotPasswordPage extends PageBase {
         emailFieldElement.sendKeys(email);
     }
 
-    public void clickOnSendNewPasswordButton()
+    public boolean clickOnSendNewPasswordButton()
     {
         waitUtils.waitForElementClickable(sendNewPasswordButton).click();
+        return false;
     }
 }
