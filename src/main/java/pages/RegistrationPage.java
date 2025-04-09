@@ -30,6 +30,7 @@ public class RegistrationPage extends PageBase {
     By emailErrorMessage = By.xpath("//div[@data-test='email-error']/div");
     By passwordField = By.id("password");
     By passwordErrorMessage = By.xpath("//div[@data-test='password-error']/div");
+    By passwordSuccess =By.cssSelector("body app-root app-register li:nth-child(2)");
     By registerButton = By.cssSelector("button[data-test='register-submit']");
 
     public RegistrationPage(WebDriver driver)
@@ -154,6 +155,10 @@ public class RegistrationPage extends PageBase {
     public String getPasswordErrorMessage()
     {
         return waitUtils.waitForElementVisible(passwordErrorMessage).getText();
+    }
+    public String getPasswordSuccessMessage()
+    {
+        return waitUtils.waitForElementVisible(passwordSuccess).getAttribute("class");
     }
 
     public void clickOnRegisterButton()

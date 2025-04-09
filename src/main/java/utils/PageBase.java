@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import pages.CommonPage;
+import pages.Favorites;
 import pages.SignInPage;
 
 public class PageBase {
@@ -17,6 +19,9 @@ public class PageBase {
     protected By signInLink = By.linkText("Sign in");
     protected By cartIcon = By.cssSelector("a[data-test='nav-cart'] fa-icon svg");
     protected By myAccountDropdown = By.xpath("//li[@role='menuitem']//a[@data-test='nav-menu']");
+    protected By myFavorites = By.xpath("//a[@routerlink='/account/favorites']");
+    protected By myFavoritesProducts = By.xpath("//div[@class='row no-gutters']");
+    protected By products = By.xpath("//div[@class='col-md-9'] //div[@class='container'] //a[@class='card']");
 
     public PageBase(WebDriver driver)
     {
@@ -25,9 +30,12 @@ public class PageBase {
         PageFactory.initElements(driver, this);
     }
 
-    public void clickOnHomeLink()
+    public CommonPage clickOnHomeLink()
     {
         waitUtils.waitForElementClickable(homeLink).click();
+        waitUtils.waitForElementVisible(products);
+        return new CommonPage(driver);
+
     }
 
     public void clickOnCategoriesLink()
@@ -57,4 +65,16 @@ public class PageBase {
     {
         waitUtils.waitForElementClickable(cartIcon).click();
     }
+    public void clickOnAccountDropdown()
+    {
+        waitUtils.waitForElementVisible(myAccountDropdown).click();
+
+    }
+    public Favorites clickOnMyFavorites()
+    {
+        waitUtils.waitForElementVisible(myFavorites).click();
+        waitUtils.waitForElementVisible(myFavoritesProducts);
+        return new Favorites(driver);
+    }
+
 }

@@ -3,7 +3,7 @@
 <suite name="Suite1" verbose="1">
     <test name="Nopackage">
         <classes>
-          <class name="tests.InvalidRegistration"/>
+          <class name="tests.FavouritesPage"/>
         </classes>
     </test>
 </suite>

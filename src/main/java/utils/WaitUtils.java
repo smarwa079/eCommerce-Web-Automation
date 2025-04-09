@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+
 public class WaitUtils {
 
     private WebDriver driver;
@@ -19,19 +21,24 @@ public class WaitUtils {
     }
 
     public WebElement waitForElementVisible(WebElement element) {
-        return wait.until(ExpectedConditions.visibilityOf(element));
+        return wait.until(visibilityOf(element));
     }
 
     public WebElement waitForElementVisible(By locator) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return wait.until(visibilityOfElementLocated(locator));
     }
 
     public WebElement waitForElementClickable(WebElement element) {
-        return wait.until(ExpectedConditions.elementToBeClickable(element));
+        return wait.until(elementToBeClickable(element));
     }
 
     public WebElement waitForElementClickable(By locator) {
-        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+        return wait.until(elementToBeClickable(locator));
     }
+
+    public Boolean waitForElementInvisibility(By locator) {
+        return wait.until(invisibilityOfElementLocated(locator));
+    }
+
 
 }

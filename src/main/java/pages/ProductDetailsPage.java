@@ -12,6 +12,7 @@ public class ProductDetailsPage extends PageBase {
     By decreaseQuantityButton = By.className("btn-decrease-quantity");
     By addToCartButton = By.xpath("//button[@data-test='add-to-cart']");
     By addToFavoritesButton = By.id("btn-add-to-favorites");
+    By addToFavouritesMessage= By.xpath("//div[@role='alert']");
     //
     By addToCartMessage = By.xpath("//div[@role='alert']");
 
@@ -45,6 +46,12 @@ public class ProductDetailsPage extends PageBase {
     public void clickOnAddToFavoritesButton()
     {
         waitUtils.waitForElementClickable(addToFavoritesButton).click();
+        waitUtils.waitForElementVisible(addToFavouritesMessage).click();
+
+    }
+    public String getAddToFavouritesMessage()
+    {
+        return waitUtils.waitForElementVisible(addToFavouritesMessage).getText();
     }
 
     public String getAddToCartMessage()

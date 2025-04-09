@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CommonPage extends PageBase {
 
-    By products = By.className("card");
+    By products = By.xpath("//div[@class='col-md-9'] //div[@class='container'] //a[@class='card']");
     By categories = By.xpath("//input[@name='category_id']/parent::label");
     By brands = By.xpath("//input[@name='brand_id']/parent::label");
     By nextPageButton = By.xpath("//a[@aria-label='Next']/parent::li");
@@ -45,6 +45,7 @@ public class CommonPage extends PageBase {
 
     public ProductDetailsPage selectProduct(String productName)
     {
+        waitUtils.waitForElementVisible(products);
         List<WebElement> productsList = driver.findElements(products);
 
         WebElement productElement = productsList.stream()
