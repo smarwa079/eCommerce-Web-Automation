@@ -17,7 +17,7 @@ public class PaymentPage extends PageBase {
     By accountNumberErrorMessage = By.xpath("//input[@data-test='bank_name']/following-sibling::div[3]");
     By confirmButton = By.xpath("//button[@data-test='finish']");
     By successPaymentMessage = By.xpath("//div[@data-test='payment-success-message']");
-
+//
     private WebElement paymentMethodsElement;
 
     public PaymentPage(WebDriver driver) {
@@ -55,7 +55,11 @@ public class PaymentPage extends PageBase {
     }
 
     public String getAccountNumberErrorMessage() {
-        return waitUtils.waitForElementVisible(accountNumberErrorMessage).getText();
+        try{
+            return waitUtils.waitForElementVisible(accountNumberErrorMessage).getText();
+        }catch(org.openqa.selenium.NoSuchElementException e){
+            return "";
+        }
     }
 
     public String getSuccessPaymentMessage() {
