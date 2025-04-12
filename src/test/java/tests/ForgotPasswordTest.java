@@ -7,7 +7,7 @@ import pages.SignInPage;
 import utils.BaseTest;
 import utils.PageBase;
 
-public class ForgotMyPasswordPage extends BaseTest {
+public class ForgotPasswordTest extends BaseTest {
 
     ForgotPasswordPage forgotPasswordPage;
     SignInPage signInPage;
@@ -28,5 +28,4 @@ public class ForgotMyPasswordPage extends BaseTest {
 
         Assert.assertTrue(forgotPasswordPage.clickOnSendNewPasswordButton(),"Button Isn't Clickable");
     }
-
 }

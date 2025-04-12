@@ -1,15 +1,14 @@
 package tests;
 
-import org.openqa.selenium.By;
+import data.RegistrationDataProvider;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.BaseTest;
 import utils.PageBase;
 import utils.WaitUtils;
 
-public class FavouritesPage extends BaseTest {
+public class FavouritesTests extends BaseTest {
     CommonPage commonPage;
     WaitUtils waitUtils;
     ProductDetailsPage productDetailsPage;
@@ -19,7 +18,8 @@ public class FavouritesPage extends BaseTest {
     Favorites favorites;
 
     @Test(priority = 1)
-    public void addProductToFavourites() {
+    public void addProductToFavourites()
+    {
         this.commonPage = new CommonPage(driver);
         this.waitUtils = new WaitUtils(driver);
         this.productDetailsPage = new ProductDetailsPage(driver);
@@ -29,25 +29,18 @@ public class FavouritesPage extends BaseTest {
         Assert.assertEquals(productDetailsPage.getAddToFavouritesMessage(),"Unauthorized, can not add product to your favorite list.");
     }
 
-    @DataProvider(name = "registrationData")
-    public Object[][] provideRegistrationData() {
-        return new Object[][]{
-                {"marwa", "salah", "27", "8", "1996", "123 main st.", "12345", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marwas00@dmsa0.com", "m_Salah1234"}
-        };
-    }
+    @Test(priority = 2, dataProvider = "registrationValidData", dataProviderClass = RegistrationDataProvider.class)
+    public void registerToFavourites(String firstName, String lastName, String day, String month, String year, String street, String postalCode, String city, String state,String country, String phone, String email, String password)
+    {
+        commonPage = new CommonPage(driver);
+        waitUtils = new WaitUtils(driver);
+        productDetailsPage = new ProductDetailsPage(driver);
+        pageBase = new PageBase(driver);
+        signInPage = new SignInPage(driver);
+        registrationPage = new RegistrationPage(driver);
 
-    @Test(priority = 2, dataProvider = "registrationData" )
-    public void registerToFavourites(String firstName, String lastName, String day, String month, String year, String street, String postalCode, String city, String state,String country, String phone, String email, String password) {
-    commonPage = new CommonPage(driver);
-    waitUtils = new WaitUtils(driver);
-    productDetailsPage = new ProductDetailsPage(driver);
-    pageBase = new PageBase(driver);
-    signInPage = new SignInPage(driver);
-    registrationPage = new RegistrationPage(driver);
-
-    pageBase.clickOnSignInLink();
-    signInPage.clickOnRegisterLink();
+        pageBase.clickOnSignInLink();
+        signInPage.clickOnRegisterLink();
         registrationPage.enterFirstName(firstName);
         registrationPage.enterLastName(lastName);
         registrationPage.selectDateOfBirth(day, month, year);
