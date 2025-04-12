@@ -29,10 +29,12 @@ public class Favorites extends PageBase {
         List<WebElement> productsNamesList = driver.findElements(productsNames);
         List<WebElement> product = productsNamesList.stream().filter(p -> p.getText().equalsIgnoreCase(productName)).toList();
 
-        int index = product.indexOf(productName);
+        int indexes = productsNamesList.indexOf(product.get(0));
+      //  int index = product.indexOf(productName);
 
         List<WebElement> deleteButtonsList = driver.findElements(deleteButtons);
-        waitUtils.waitForElementClickable(deleteButtonsList.get(index)).click();
+        waitUtils.waitForElementClickable(deleteButtonsList.get(indexes)).click();
+        waitUtils.waitForElementInvisibility(productsNames);
     }
 
 }
