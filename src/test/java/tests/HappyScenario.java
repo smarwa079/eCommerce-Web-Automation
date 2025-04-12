@@ -23,9 +23,9 @@ public class HappyScenario extends BaseTest {
         this.commonPage = new CommonPage(driver);
         this.waitUtils = new WaitUtils(driver);
         this.homePage = new HomePage(driver);
-        this.homePage.enterSearchForProduct("hammer");
+        this.homePage.searchForProduct("hammer");
 
-        List<WebElement> products = homePage.getSearchResults();
+        List<WebElement> products = homePage.getProducts();
 
         for(WebElement product : products) {
             String productTitle = product.getText().toLowerCase();
@@ -61,6 +61,33 @@ public class HappyScenario extends BaseTest {
 
     }
 
+    @Test(priority = 4)
+    public void filterFunction() {
+        this.homePage = new HomePage(driver);
+        homePage.filterProductsByCategory("Hammer");
+        List<WebElement> products = homePage.getProducts();
+
+        for(WebElement product : products) {
+            String productTitle = product.getText().toLowerCase();
+            System.out.println(productTitle);
+            Assert.assertTrue(productTitle.contains("hammer"), "Product '" + productTitle + "' does not appear to be a hammer");
+        }
+    }
+
+    @Test(priority = 5)
+    public void search() {
+        this.homePage = new HomePage(driver);
+        homePage.searchForProduct("Thor Hammer");
+        List<WebElement> products = homePage.getProducts();
+
+        for(WebElement product : products) {
+            String productTitle = product.getText().toLowerCase();
+            System.out.println(productTitle);
+            Assert.assertTrue(productTitle.contains("hammer"), "Product '" + productTitle + "' does not appear to be a hammer");
+        }
+
+        homePage.selectProduct("Thor Hammer");
+    }
 
 
 //    @Test

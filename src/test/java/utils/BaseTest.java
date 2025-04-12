@@ -10,8 +10,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.ITestResult;
 
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -21,13 +22,15 @@ public class BaseTest {
 
     protected static WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     public void setup()
     {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://practicesoftwaretesting.com/");
     }
+
+
 
     @AfterMethod
     public void getScreenShot(ITestResult result) throws IOException {
@@ -41,10 +44,10 @@ public class BaseTest {
 
     }
 
-//    @AfterSuite
-//    public void shutDown()
-//    {
-//        driver.quit();
-//    }
+    @AfterClass
+    public void shutDown()
+    {
+        driver.quit();
+    }
 
 }
