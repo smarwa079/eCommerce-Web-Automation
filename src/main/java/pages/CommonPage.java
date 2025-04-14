@@ -77,6 +77,7 @@ public class CommonPage extends PageBase {
         if (productsList == null || productsList.isEmpty()) {
             refreshProductsList();
         }
+
         WebElement productElement = productsList.stream()
                 .filter(product -> product.getText().equalsIgnoreCase(productName))
                 .findFirst()

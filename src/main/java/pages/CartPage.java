@@ -1,11 +1,15 @@
 package pages;
 
-import net.bytebuddy.asm.Advice;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.PageBase;
+
+import java.time.Duration;
+import java.util.NoSuchElementException;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -18,7 +22,7 @@ public class CartPage extends PageBase {
     By proceedToCheckout1 = By.xpath("//button[@data-test='proceed-1']");
     By proceedToCheckout2 = By.xpath("//button[@data-test='proceed-2']");
     By totalPrice = By.xpath("//td[@data-test='cart-total']");
-
+    By updateCartMessage = By.xpath("//div[@role='alert']");
 
     public CartPage(WebDriver driver)
     {
@@ -40,19 +44,31 @@ public class CartPage extends PageBase {
 
     public void updateProductQuantity(String productName, int quantity)
     {
+        double oldTotalPrice = getTotalPrice();
+
         List<WebElement>  cartItemsList = driver.findElements(cartItems);
+        cartItemsList.stream()
+                .filter(item -> item.getText().contains(productName)) // Checks if product exists
+                .findFirst() // Takes the first match (if any)
+                .ifPresentOrElse(
+                        item -> {
+                            // Find the quantity input INSIDE the same cart item (no index needed)
+                            WebElement qtyInput = item.findElement(quantityInputs);
+                            qtyInput.clear();
+                            qtyInput.sendKeys(String.valueOf(quantity));
+                            qtyInput.sendKeys(Keys.ENTER);
 
-        int index = IntStream.range(0, cartItemsList.size())
-                .filter(i -> cartItemsList.get(i).getText().equalsIgnoreCase(productName))
-                .findFirst()
-                .orElse(-1);
+                            // Wait until the total price is updated
+                            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                            wait.until((ExpectedCondition<Boolean>) driver -> {
+                                double updatedTotalPrice = getTotalPrice();
+                                return updatedTotalPrice != oldTotalPrice;
+                            });
 
-        if (index != -1)
-        {
-            List<WebElement> quantityInputsList = driver.findElements(quantityInputs);
-            waitUtils.waitForElementVisible(quantityInputsList.get(index)).sendKeys(Integer.toString(quantity));
-            waitUtils.waitForElementVisible(quantityInputsList.get(index)).sendKeys(Keys.ENTER);
-        }
+                        },
+                        () -> { throw new NoSuchElementException("Product '" + productName + "' not found in cart!"); }
+                );
+
     }
 
     public void clickOnRemoveProductButton(String productName)

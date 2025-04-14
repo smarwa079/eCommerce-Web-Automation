@@ -11,8 +11,10 @@ public class Favorites extends PageBase {
 
     By productsNames = By.xpath("//h5[@data-test='product-name']");
     By deleteButtons = By.xpath("//button[@data-test='delete']");
+    By removeMessage = By.xpath("//div[@class='ng-star-inserted']");
 
-    public Favorites(WebDriver driver) {
+    public Favorites(WebDriver driver)
+    {
         super(driver);
     }
 
@@ -30,11 +32,16 @@ public class Favorites extends PageBase {
         List<WebElement> product = productsNamesList.stream().filter(p -> p.getText().equalsIgnoreCase(productName)).toList();
 
         int indexes = productsNamesList.indexOf(product.get(0));
-      //  int index = product.indexOf(productName);
 
         List<WebElement> deleteButtonsList = driver.findElements(deleteButtons);
         waitUtils.waitForElementClickable(deleteButtonsList.get(indexes)).click();
         waitUtils.waitForElementInvisibility(productsNames);
+    }
+
+    public  String deleteProductMessage()
+    {
+        String message =  waitUtils.waitForElementVisible(removeMessage).getText();
+        return message;
     }
 
 }

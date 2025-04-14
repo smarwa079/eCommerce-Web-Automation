@@ -20,21 +20,25 @@ public class BankTransferPayment extends BaseTest {
     BillingAddressPage billingAddressPage;
 
     @BeforeClass
-    public void processToPayment(){
+    public void processToPayment()
+    {
 
-        productDetailsPage = new ProductDetailsPage(driver);
         pageBase = new PageBase(driver);
-        paymentPage = new PaymentPage(driver);
-        homePage = new HomePage(driver);
-        cartPage = new CartPage(driver);
-        billingAddressPage = new BillingAddressPage(driver);
 
         pageBase.clickOnHomeLink();
-        ProductDetailsPage detailsPage = homePage.selectProduct("pliers");
-        detailsPage.clickOnAddToCartButton();
-        detailsPage.clickOnCartIcon();
+
+        homePage = new HomePage(driver);
+
+        this.productDetailsPage = homePage.selectProduct("pliers");
+        productDetailsPage.clickOnAddToCartButton();
+        productDetailsPage.clickOnCartIcon();
+
+        cartPage = new CartPage(driver);
+
         cartPage.clickOnProceedToCheckoutFirstButton();
         cartPage.clickOnProceedToCheckoutSecondButton();
+
+        billingAddressPage = new BillingAddressPage(driver);
         billingAddressPage.clickOnProceedToCheckoutButton();
     }
 

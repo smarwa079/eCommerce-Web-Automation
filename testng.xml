@@ -4,10 +4,15 @@
     <test name="tests">
         <classes>
             <class name="tests.HappyScenarioTests"/>
-            <class name="tests.BankTransferPayment"/>
             <class name="tests.FavouritesTests"/>
-            <class name="tests.RegistrationInvalidTests"/>
-            <class name="tests.ForgotPasswordTest"/>
+            <class name="tests.BankTransferPayment"/>
         </classes>
+    </test>
+
+    <test name="tests2">
+    <classes>
+        <class name="tests.RegistrationInvalidTests"/>
+        <class name="tests.ForgotPasswordTest"/>
+    </classes>
     </test>
 </suite>

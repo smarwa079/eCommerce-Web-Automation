@@ -34,8 +34,8 @@ public class PageBase {
     {
         waitUtils.waitForElementClickable(homeLink).click();
         waitUtils.waitForElementVisible(products);
-        return new CommonPage(driver);
 
+        return new CommonPage(driver);
     }
 
     public void clickOnCategoriesLink()

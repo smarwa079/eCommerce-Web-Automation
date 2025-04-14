@@ -10,7 +10,8 @@ public class ForgotPasswordPage extends PageBase {
     By emailField = By.id("email");
     By sendNewPasswordButton = By.className("btnSubmit");
 
-    public ForgotPasswordPage(WebDriver driver) {
+    public ForgotPasswordPage(WebDriver driver)
+    {
         super(driver);
     }
 
@@ -20,9 +21,27 @@ public class ForgotPasswordPage extends PageBase {
         emailFieldElement.sendKeys(email);
     }
 
-    public boolean clickOnSendNewPasswordButton()
+    public boolean isPasswordResetSent() {
+        try {
+
+            WebElement successMessage = waitUtils.waitForElementVisible(By.xpath("//div[contains(text(),'Password reset link sent')]"));
+            return successMessage.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSendNewPasswordButtonClickable() {
+        try {
+            waitUtils.waitForElementClickable(sendNewPasswordButton);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void clickOnSendNewPasswordButton()
     {
         waitUtils.waitForElementClickable(sendNewPasswordButton).click();
-        return false;
     }
 }

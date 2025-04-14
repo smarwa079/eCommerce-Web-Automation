@@ -9,8 +9,8 @@ import pages.SignInPage;
 import utils.BaseTest;
 import utils.PageBase;
 
-public class RegistrationInvalidTests extends BaseTest {
-
+public class RegistrationInvalidTests extends BaseTest
+{
     PageBase pageBase;
     SignInPage signInPage;
     RegistrationPage registrationPage;
@@ -157,10 +157,3 @@ public class RegistrationInvalidTests extends BaseTest {
         Assert.assertFalse(registrationPage.getPasswordSuccessMessage().contains("text-success"));
     }
 }
-
-
-
-
-
-
-

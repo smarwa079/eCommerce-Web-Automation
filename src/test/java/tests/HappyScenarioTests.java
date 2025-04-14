@@ -1,21 +1,17 @@
 package tests;
 
 import data.RegistrationDataProvider;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.BaseTest;
-import utils.WaitUtils;
 
 import java.util.List;
 
 
 public class HappyScenarioTests extends BaseTest {
 
-    CommonPage commonPage;
-    WaitUtils waitUtils;
     HomePage homePage;
     CartPage cartPage;
     ProductDetailsPage productDetailsPage;
@@ -24,41 +20,42 @@ public class HappyScenarioTests extends BaseTest {
 
     @Test(priority = 1)
     public void searchProductName() {
-        this.commonPage = new CommonPage(driver);
-        this.waitUtils = new WaitUtils(driver);
         this.homePage = new HomePage(driver);
 
         this.homePage.searchForProduct("hammer");
+
         List<WebElement> productList = homePage.getProducts();
+
         for(WebElement product : productList) {
             String productTitle = product.getText().toLowerCase();
             Assert.assertTrue(productTitle.contains("hammer"), "Product '" + productTitle + "' does not appear to be a hammer");
-
         }
     }
 
     @Test(priority = 2)
     public void addProductToCart() {
         this.homePage = new HomePage(driver);
-        this.cartPage = new CartPage(driver);
-        this.waitUtils = new WaitUtils(driver);
+
         ProductDetailsPage detailsPage = homePage.selectProduct("Claw Hammer");
         detailsPage.clickOnAddToCartButton();
+
         String addToCartMessage = detailsPage.getAddToCartMessage();
         System.out.println(addToCartMessage);
+        Assert.assertEquals(addToCartMessage, "Product added to shopping cart.");
+
         detailsPage.clickOnCartIcon();
-        waitUtils.waitForElementVisible(By.xpath("//table[@class='table table-hover']/tbody/tr/td[1]"));
-        String cartItems = driver.findElement(By.xpath("//td[@class='col-md-4'] //span[@class='product-title']")).getText();
-        Assert.assertTrue(cartPage.findCartItem("Claw Hammer"));
-        Assert.assertTrue(cartItems.contains("Claw Hammer"), "Claw Hammer was not found in the cart items");
+
+        this.cartPage = new CartPage(driver);
+
+        Assert.assertTrue(cartPage.findCartItem("Claw Hammer"), "Claw Hammer was not found in the cart items");
     }
 
     @Test(priority = 3)
     public void cart() {
-        cartPage = new CartPage(driver);
-        productDetailsPage= new ProductDetailsPage(driver);
+        this.cartPage = new CartPage(driver);
 
         cartPage.updateProductQuantity("Claw Hammer", 2);
+
         double updatedPrice = cartPage.getTotalPrice();
         System.out.println(updatedPrice);
         Assert.assertEquals(updatedPrice, 22.96, "Updated price is not correct");
@@ -66,9 +63,9 @@ public class HappyScenarioTests extends BaseTest {
     }
 
     @Test(priority = 4, dataProvider = "registrationValidData", dataProviderClass = RegistrationDataProvider.class)
-    public void cartSignIn(String firstName, String lastName, String day, String month, String year, String street, String postalCode, String city, String state,String country, String phone, String email, String password) {
-        signInPage = new SignInPage(driver);
-        cartPage = new CartPage(driver);
+    public void cartSignIn(String firstName, String lastName, String day, String month, String year, String street, String postalCode, String city, String state,String country, String phone, String email, String password)
+    {
+        this.signInPage = new SignInPage(driver);
 
         RegistrationPage registrationPage = signInPage.clickOnRegisterLink();
         registrationPage.enterFirstName(firstName);
@@ -85,6 +82,8 @@ public class HappyScenarioTests extends BaseTest {
         registrationPage.clickOnRegisterButton();
         signInPage.signIn(email, password);
         signInPage.clickOnCartIcon();
+
+        this.cartPage = new CartPage(driver);
 
         cartPage.clickOnProceedToCheckoutFirstButton();
         cartPage.clickOnProceedToCheckoutSecondButton();

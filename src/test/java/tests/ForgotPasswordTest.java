@@ -26,6 +26,7 @@ public class ForgotPasswordTest extends BaseTest {
         forgotPasswordPage.enterEmail("marwas00@dmsa0.com");
         forgotPasswordPage.clickOnSendNewPasswordButton();
 
-        Assert.assertTrue(forgotPasswordPage.clickOnSendNewPasswordButton(),"Button Isn't Clickable");
+        Assert.assertTrue(forgotPasswordPage.isSendNewPasswordButtonClickable(),"Button Isn't Clickable");
+        Assert.assertTrue(forgotPasswordPage.isPasswordResetSent(), "Button click didn't trigger expected behavior");
     }
 }

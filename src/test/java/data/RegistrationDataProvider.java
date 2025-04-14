@@ -8,7 +8,7 @@ public class RegistrationDataProvider
     public Object[][] provideRegistrationData() {
         return new Object[][] {
                 {"marwa", "salah", "27", "8", "1996", "123 main st.", "12345", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marwass80@gmail.com", "m_Salah1234"}
+                        "Egypt", "01235675901", "marw8213ssllh80@gmail.com", "m_Salah1234"}
         };
     }
 
