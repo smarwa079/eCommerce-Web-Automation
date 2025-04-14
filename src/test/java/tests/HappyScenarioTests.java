@@ -9,6 +9,8 @@ import pages.*;
 import utils.BaseTest;
 import utils.WaitUtils;
 
+import java.util.List;
+
 
 public class HappyScenarioTests extends BaseTest {
 
@@ -27,12 +29,12 @@ public class HappyScenarioTests extends BaseTest {
         this.homePage = new HomePage(driver);
 
         this.homePage.searchForProduct("hammer");
-        for(WebElement product : driver.findElements(By.xpath("//div[@class='col-md-9'] //div[@class='container']"))) {
+        List<WebElement> productList = homePage.getProducts();
+        for(WebElement product : productList) {
             String productTitle = product.getText().toLowerCase();
             Assert.assertTrue(productTitle.contains("hammer"), "Product '" + productTitle + "' does not appear to be a hammer");
 
         }
-
     }
 
     @Test(priority = 2)
