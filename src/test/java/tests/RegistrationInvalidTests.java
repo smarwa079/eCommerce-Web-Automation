@@ -31,7 +31,8 @@ public class RegistrationInvalidTests extends BaseTest
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that the system shows an error when the first name field is left empty during registration.")
     @Test(priority = 1, dataProvider = "emptyFirstNameRegistrationData", dataProviderClass = RegistrationDataProvider.class)
-    public void emptyFirstName(HashMap<String, String> testData) {
+    public void emptyFirstName(HashMap<String, String> testData)
+    {
         registrationPage = new RegistrationPage(driver);
 
         registrationPage.enterFirstName(testData.get("firstName"));

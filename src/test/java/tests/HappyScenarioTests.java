@@ -11,7 +11,6 @@ import pages.*;
 import utils.BaseTest;
 
 import java.util.List;
-import java.util.Locale;
 
 
 public class HappyScenarioTests extends BaseTest
@@ -21,23 +20,6 @@ public class HappyScenarioTests extends BaseTest
     ProductDetailsPage productDetailsPage;
     SignInPage signInPage;
     BillingAddressPage addressPage;
-
-    Locale locale = Locale.of("en", "US");
-    Faker dataFaker = new Faker(locale);
-    String firstName = dataFaker.name().firstName();
-    String lastName = dataFaker.name().lastName();
-    String street = dataFaker.address().streetAddress();
-    String postalCode = dataFaker.address().zipCode();
-    String city = dataFaker.address().city();
-    String state = dataFaker.address().state();
-    String country = dataFaker.address().country();
-    String phone = dataFaker.phoneNumber().phoneNumber().replaceAll("[^\\d]", "");
-    String day = String.valueOf(dataFaker.number().numberBetween(1, 28));
-    String month = String.valueOf(dataFaker.number().numberBetween(1, 12));
-    String year = String.valueOf(dataFaker.number().numberBetween(1980, 2007));
-    String email = dataFaker.internet().emailAddress();
-    String password = dataFaker.internet().password(8, 12, true, true, true);
-
 
     @Test(priority = 1)
     @Severity(SeverityLevel.NORMAL)
