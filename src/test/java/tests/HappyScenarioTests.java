@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import pages.*;
 import utils.BaseTest;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -63,24 +64,24 @@ public class HappyScenarioTests extends BaseTest
     }
 
     @Test(priority = 4, dataProvider = "validRegistrationData", dataProviderClass = RegistrationDataProvider.class)
-    public void cartSignIn(String firstName, String lastName, String day, String month, String year, String street, String postalCode, String city, String state,String country, String phone, String email, String password)
+    public void cartSignIn(HashMap<String, String> testData)
     {
         this.signInPage = new SignInPage(driver);
 
         RegistrationPage registrationPage = signInPage.clickOnRegisterLink();
-        registrationPage.enterFirstName(firstName);
-        registrationPage.enterLastName(lastName);
-        registrationPage.selectDateOfBirth(day, month, year);
-        registrationPage.enterStreet(street);
-        registrationPage.enterPostalCode(postalCode);
-        registrationPage.enterCity(city);
-        registrationPage.enterState(state);
-        registrationPage.selectCountry(country);
-        registrationPage.enterPhone(phone);
-        registrationPage.enterEmail(email);
-        registrationPage.enterPassword(password);
+        registrationPage.enterFirstName(testData.get("firstName"));
+        registrationPage.enterLastName(testData.get("lastName"));
+        registrationPage.selectDateOfBirth(testData.get("day"), testData.get("month"), testData.get("year"));
+        registrationPage.enterStreet(testData.get("street"));
+        registrationPage.enterPostalCode(testData.get("postalCode"));
+        registrationPage.enterCity(testData.get("city"));
+        registrationPage.enterState(testData.get("state"));
+        registrationPage.selectCountry(testData.get("country"));
+        registrationPage.enterPhone(testData.get("phone"));
+        registrationPage.enterEmail(testData.get("email"));
+        registrationPage.enterPassword(testData.get("password") );
         registrationPage.clickOnRegisterButton();
-        signInPage.signIn(email, password);
+        signInPage.signIn(testData.get("email"), testData.get("password"));
         signInPage.clickOnCartIcon();
 
         this.cartPage = new CartPage(driver);

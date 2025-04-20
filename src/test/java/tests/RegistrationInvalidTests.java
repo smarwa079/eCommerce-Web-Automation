@@ -11,7 +11,8 @@ import utils.PageBase;
 
 import java.util.HashMap;
 
-public class RegistrationInvalidTests extends BaseTest {
+public class RegistrationInvalidTests extends BaseTest
+{
     PageBase pageBase;
     SignInPage signInPage;
     RegistrationPage registrationPage;
@@ -86,7 +87,7 @@ public class RegistrationInvalidTests extends BaseTest {
         Assert.assertEquals(registrationPage.getDateOfBirthErrorMessage(), "Customer must be 18 years old.");
     }
 
-    @Test(priority = 4, dataProvider = "invalidEmailRegistrationData", dataProviderClass = RegistrationDataProvider.class)
+    @Test(priority = 4, dataProvider = "invalidEmailFormatRegistrationData", dataProviderClass = RegistrationDataProvider.class)
     public void invalidEmail(HashMap<String, String> testData) {
         registrationPage = new RegistrationPage(driver);
 
@@ -126,8 +127,8 @@ public class RegistrationInvalidTests extends BaseTest {
         Assert.assertEquals(registrationPage.getPostalCodeErrorMessage(), "Postal code can't contain only letters");
     }
 
-    @Test(priority = 6, dataProvider = "invalidEmailFormatRegistrationData", dataProviderClass = RegistrationDataProvider.class)
-    public void invalidEmailFormat(HashMap<String, String> testData) {
+    @Test(priority = 6, dataProvider = "missingAtInEmailRegistrationData", dataProviderClass = RegistrationDataProvider.class)
+    public void missingAtInEmail(HashMap<String, String> testData) {
         registrationPage = new RegistrationPage(driver);
 
         registrationPage.enterFirstName(testData.get("firstName"));

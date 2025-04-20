@@ -64,7 +64,7 @@
     "password": "m_Salah1234"
   },
   {
-    "testCase": "invalidEmailFormat1",
+    "testCase": "invalidEmailFormat",
     "firstName": "Marwa",
     "lastName": "Salah",
     "day": "27",

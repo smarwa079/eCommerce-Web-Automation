@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class RegistrationDataProvider
 {
-    private static final String DATA_FILE_PATH = System.getProperty("user.dir") + "//src//test//resources//data//registrationData.json";
+    private static final String DATA_FILE_PATH = System.getProperty("user.dir") + "\\src\\test\\resources\\RegistrationData.json";
 
     @DataProvider(name = "validRegistrationData")
     public Object[][] provideValidRegistrationData() throws IOException {
@@ -34,9 +34,9 @@ public class RegistrationDataProvider
         return new Object[][] {{ testData }};
     }
 
-    @DataProvider(name = "invalidEmailRegistrationData")
+    @DataProvider(name = "invalidEmailFormatRegistrationData")
     public Object[][] provideInvalidEmailRegistrationData() throws IOException {
-        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "invalidEmailFormat1");
+        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "invalidEmailFormat");
         return new Object[][] {{ testData }};
     }
 
@@ -46,7 +46,7 @@ public class RegistrationDataProvider
         return new Object[][] {{ testData }};
     }
 
-    @DataProvider(name = "invalidEmailFormatRegistrationData")
+    @DataProvider(name = "missingAtInEmailRegistrationData")
     public Object[][] provideInvalidEmailFormatRegistrationData() throws IOException {
         HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "missingAtInEmail");
         return new Object[][] {{ testData }};
