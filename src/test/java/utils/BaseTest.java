@@ -29,24 +29,6 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.get("https://practicesoftwaretesting.com/");
     }
-    HomePage homePage;
-
-//    @Test (priority = 1)
-//    public void test1()
-//    {
-//        this.homePage = new HomePage(driver);
-//        homePage.searchForProduct("hammer");
-//    }
-//
-//    @Test (priority = 2)
-//    public void test2()
-//    {
-//        this.homePage = new HomePage(driver);
-//        ProductDetailsPage detailsPage = homePage.selectProduct("Claw Hammer");
-//        detailsPage.clickOnAddToCartButton();
-//    }
-
-
 
     @AfterMethod
     public void getScreenShot(ITestResult result) throws IOException {
@@ -57,7 +39,6 @@ public class BaseTest {
             File destination = new File("./ScreenShots/"+result.getName()+".png");
             FileUtils.copyFile(source, destination);
         }
-
     }
 
     @AfterTest

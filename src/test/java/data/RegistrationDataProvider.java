@@ -1,70 +1,60 @@
 package data;
 
 import org.testng.annotations.DataProvider;
+import utils.JsonDataReader;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 public class RegistrationDataProvider
 {
-    @DataProvider(name = "registrationValidData")
-    public Object[][] provideRegistrationData() {
-        return new Object[][] {
-                {"marwa", "salah", "27", "8", "1996", "123 main st.", "12345", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marw8213ssllh80@gmail.com", "m_Salah1234"}
-        };
+    private static final String DATA_FILE_PATH = System.getProperty("user.dir") + "//src//test//resources//data//registrationData.json";
+
+    @DataProvider(name = "validRegistrationData")
+    public Object[][] provideValidRegistrationData() throws IOException {
+        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "validData");
+        return new Object[][] {{ testData }};
     }
 
-    @DataProvider(name = "registrationData2")
-    public Object[][] provideRegistrationData2() {
-        return new Object[][] {
-                {"", "salah", "27", "8", "1996", "123 main st.", "12345", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marwass800@hiyahs000.com", "m_Salah1234"}
-        };
+    @DataProvider(name = "emptyFirstNameRegistrationData")
+    public Object[][] provideEmptyFirstNameRegistrationData() throws IOException {
+        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "emptyFirstName");
+        return new Object[][] {{ testData }};
     }
 
-    @DataProvider(name = "registrationData3")
-    public Object[][] provideRegistrationData3() {
-        return new Object[][] {
-                {"Marwa", "sa", "27", "8", "1996", "123 main st.", "12345", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marwass800@hiyahs000.com", "m_Salah1234"}
-        };
+    @DataProvider(name = "shortLastNameRegistrationData")
+    public Object[][] provideShortLastNameRegistrationData() throws IOException {
+        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "shortLastName");
+        return new Object[][] {{ testData }};
     }
 
-    @DataProvider(name = "registrationData4")
-    public Object[][] provideRegistrationData4() {
-        return new Object[][] {
-                {"Marwa", "Salah", "27", "8", "2028", "123 main st.", "12345", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marwass700@hiyahs000.com", "m_Salah1234"}
-        };
+    @DataProvider(name = "futureDateOfBirthRegistrationData")
+    public Object[][] provideFutureDateOfBirthRegistrationData() throws IOException {
+        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "futureDateOfBirth");
+        return new Object[][] {{ testData }};
     }
 
-    @DataProvider(name = "registrationData5")
-    public Object[][] provideRegistrationData5() {
-        return new Object[][] {
-                {"Marwa", "Salah", "27", "8", "2000", "123 main st.", "12345", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marwass700@hiyahs000", "m_Salah1234"}
-        };
+    @DataProvider(name = "invalidEmailRegistrationData")
+    public Object[][] provideInvalidEmailRegistrationData() throws IOException {
+        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "invalidEmailFormat1");
+        return new Object[][] {{ testData }};
     }
 
-    @DataProvider(name = "registrationData6")
-    public Object[][] provideRegistrationData6() {
-        return new Object[][] {
-                {"Marwa", "Salah", "27", "8", "2000", "123 main st.", "fffff", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marwa.salah@gmail.com", "m_Salah1234"}
-        };
+    @DataProvider(name = "invalidPostalCodeRegistrationData")
+    public Object[][] provideInvalidPostalCodeRegistrationData() throws IOException {
+        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "invalidPostalCode");
+        return new Object[][] {{ testData }};
     }
 
-    @DataProvider(name = "registrationData7")
-    public Object[][] provideRegistrationData7() {
-        return new Object[][] {
-                {"Marwa", "Salah", "27", "8", "2000", "123 main st.", "fffff", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marwa.salahgmail.com", "m_Salah1234"}
-        };
+    @DataProvider(name = "invalidEmailFormatRegistrationData")
+    public Object[][] provideInvalidEmailFormatRegistrationData() throws IOException {
+        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "missingAtInEmail");
+        return new Object[][] {{ testData }};
     }
 
-    @DataProvider(name = "registrationData8")
-    public Object[][] provideRegistrationData8() {
-        return new Object[][] {
-                {"Marwa", "Salah", "27", "8", "2000", "123 main st.", "fffff", "Zamalek", "cairo",
-                        "Egypt", "01235675901", "marwa.salah@gmail.com", "m_salah1234"}
-        };
+    @DataProvider(name = "weakPasswordRegistrationData")
+    public Object[][] provideWeakPasswordRegistrationData() throws IOException {
+        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "invalidPasswordFormat");
+        return new Object[][] {{ testData }};
     }
 }

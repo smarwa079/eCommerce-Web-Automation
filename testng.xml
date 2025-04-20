@@ -5,7 +5,7 @@
         <classes>
             <class name="tests.HappyScenarioTests"/>
             <class name="tests.FavouritesTests"/>
-            <class name="tests.BankTransferPayment"/>
+            <class name="tests.BankTransferPaymentTest"/>
         </classes>
     </test>
 

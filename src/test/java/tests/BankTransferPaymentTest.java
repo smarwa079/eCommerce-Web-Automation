@@ -7,11 +7,9 @@ import org.testng.annotations.Test;
 import pages.*;
 import utils.BaseTest;
 import utils.PageBase;
-import utils.WaitUtils;
 
-public class BankTransferPayment extends BaseTest {
-
-
+public class BankTransferPaymentTest extends BaseTest
+{
     ProductDetailsPage productDetailsPage;
     PageBase pageBase;
     PaymentPage paymentPage;
@@ -60,6 +58,4 @@ public class BankTransferPayment extends BaseTest {
         //bug
         Assert.assertTrue(paymentPage.getAccountNumberErrorMessage().isEmpty());
     }
-
-
 }

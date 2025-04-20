@@ -7,9 +7,9 @@ import utils.BaseTest;
 import utils.PageBase;
 import utils.WaitUtils;
 
-public class FavouritesTests extends BaseTest {
+public class FavouritesTests extends BaseTest
+{
     CommonPage commonPage;
-    WaitUtils waitUtils;
     ProductDetailsPage productDetailsPage;
     PageBase pageBase;
     Favorites favorites;

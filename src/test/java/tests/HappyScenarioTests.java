@@ -10,8 +10,8 @@ import utils.BaseTest;
 import java.util.List;
 
 
-public class HappyScenarioTests extends BaseTest {
-
+public class HappyScenarioTests extends BaseTest
+{
     HomePage homePage;
     CartPage cartPage;
     ProductDetailsPage productDetailsPage;
@@ -62,7 +62,7 @@ public class HappyScenarioTests extends BaseTest {
         cartPage.clickOnProceedToCheckoutFirstButton();
     }
 
-    @Test(priority = 4, dataProvider = "registrationValidData", dataProviderClass = RegistrationDataProvider.class)
+    @Test(priority = 4, dataProvider = "validRegistrationData", dataProviderClass = RegistrationDataProvider.class)
     public void cartSignIn(String firstName, String lastName, String day, String month, String year, String street, String postalCode, String city, String state,String country, String phone, String email, String password)
     {
         this.signInPage = new SignInPage(driver);
@@ -96,7 +96,8 @@ public class HappyScenarioTests extends BaseTest {
     }
 
     @Test(priority = 6)
-    public void payment() {
+    public void payment()
+    {
         PaymentPage paymentPage = new PaymentPage(driver);
         paymentPage.payCashOnDelivery();
         paymentPage.clickOnConfirmButton();
