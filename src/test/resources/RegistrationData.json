@@ -1,20 +1,5 @@
 [
   {
-    "testCase": "validData",
-    "firstName": "marwa",
-    "lastName": "salah",
-    "day": "27",
-    "month": "8",
-    "year": "1996",
-    "street": "123 main st.",
-    "postalCode": "12345",
-    "city": "Zamalek",
-    "state": "cairo",
-    "country": "Egypt",
-    "phone": "01235675901",
-    "password": "m_Salah1234"
-  },
-  {
     "testCase": "emptyFirstName",
     "firstName": "",
     "lastName": "salah",

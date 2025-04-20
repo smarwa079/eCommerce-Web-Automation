@@ -10,6 +10,7 @@ import utils.BaseTest;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 public class HappyScenarioTests extends BaseTest
@@ -20,9 +21,19 @@ public class HappyScenarioTests extends BaseTest
     SignInPage signInPage;
     BillingAddressPage addressPage;
 
-    Faker dataFaker = new Faker();
+    Locale locale = Locale.of("en", "US");
+    Faker dataFaker = new Faker(locale);
     String firstName = dataFaker.name().firstName();
     String lastName = dataFaker.name().lastName();
+    String street = dataFaker.address().streetAddress();
+    String postalCode = dataFaker.address().zipCode();
+    String city = dataFaker.address().city();
+    String state = dataFaker.address().state();
+    String country = dataFaker.address().country();
+    String phone = dataFaker.phoneNumber().phoneNumber().replaceAll("[^\\d]", "");
+    String day = String.valueOf(dataFaker.number().numberBetween(1, 28));
+    String month = String.valueOf(dataFaker.number().numberBetween(1, 12));
+    String year = String.valueOf(dataFaker.number().numberBetween(1980, 2007));
     String email = dataFaker.internet().emailAddress();
     String password = dataFaker.internet().password(8, 12, true, true, true);
 
@@ -70,21 +81,21 @@ public class HappyScenarioTests extends BaseTest
         cartPage.clickOnProceedToCheckoutFirstButton();
     }
 
-    @Test(priority = 4, dataProvider = "validRegistrationData", dataProviderClass = RegistrationDataProvider.class)
-    public void cartSignIn(HashMap<String, String> testData)
+    @Test(priority = 4)
+    public void cartSignIn()
     {
         this.signInPage = new SignInPage(driver);
 
         RegistrationPage registrationPage = signInPage.clickOnRegisterLink();
         registrationPage.enterFirstName(firstName);
         registrationPage.enterLastName(lastName);
-        registrationPage.selectDateOfBirth(testData.get("day"), testData.get("month"), testData.get("year"));
-        registrationPage.enterStreet(testData.get("street"));
-        registrationPage.enterPostalCode(testData.get("postalCode"));
-        registrationPage.enterCity(testData.get("city"));
-        registrationPage.enterState(testData.get("state"));
-        registrationPage.selectCountry(testData.get("country"));
-        registrationPage.enterPhone(testData.get("phone"));
+        registrationPage.selectDateOfBirth(day, month, year);
+        registrationPage.enterStreet(street);
+        registrationPage.enterPostalCode(postalCode);
+        registrationPage.enterCity(city);
+        registrationPage.enterState(state);
+        registrationPage.selectCountry(country);
+        registrationPage.enterPhone(phone);
         registrationPage.enterEmail(email);
         registrationPage.enterPassword(password);
         registrationPage.clickOnRegisterButton();

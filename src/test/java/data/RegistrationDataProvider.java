@@ -10,12 +10,6 @@ public class RegistrationDataProvider
 {
     private static final String DATA_FILE_PATH = System.getProperty("user.dir") + "\\src\\test\\resources\\RegistrationData.json";
 
-    @DataProvider(name = "validRegistrationData")
-    public Object[][] provideValidRegistrationData() throws IOException {
-        HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "validData");
-        return new Object[][] {{ testData }};
-    }
-
     @DataProvider(name = "emptyFirstNameRegistrationData")
     public Object[][] provideEmptyFirstNameRegistrationData() throws IOException {
         HashMap<String, String> testData = JsonDataReader.readJsonData(DATA_FILE_PATH, "emptyFirstName");
