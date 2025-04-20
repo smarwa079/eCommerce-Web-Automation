@@ -1,11 +1,13 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.BaseTest;
 import utils.PageBase;
-import utils.WaitUtils;
 
 public class FavouritesTests extends BaseTest
 {
@@ -14,6 +16,8 @@ public class FavouritesTests extends BaseTest
     PageBase pageBase;
     Favorites favorites;
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify that a product can be added to the favorites list.")
     @Test(priority = 3)
     public void addProductToFavourites()
     {
@@ -33,6 +37,8 @@ public class FavouritesTests extends BaseTest
         Assert.assertEquals(productDetailsPage.getAddToFavouritesMessage(),"Product already in your favorites list." );
     }
 
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify that the favorites list can be viewed.")
     @Test(priority = 4)
     public void viewFavourites()
     {
@@ -45,6 +51,8 @@ public class FavouritesTests extends BaseTest
         Assert.assertEquals(favorites.getProductFromFavorites("Combination Pliers"),"Combination Pliers");
     }
 
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify that a product can be removed from the favorites list.")
     @Test(priority = 5)
     public void removeProductFromFavourites()
     {

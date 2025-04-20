@@ -1,5 +1,8 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ForgotPasswordPage;
@@ -15,6 +18,8 @@ public class ForgotPasswordTest extends BaseTest {
 
     //BUG
     @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify that the favorites list can be viewed.")
     public void forgotMyPassword()
     {
         signInPage = new SignInPage(driver);

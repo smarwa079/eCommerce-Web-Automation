@@ -1,5 +1,9 @@
 package tests;
 
+import data.PaymentDataProvider;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -8,8 +12,7 @@ import pages.*;
 import utils.BaseTest;
 import utils.PageBase;
 
-public class BankTransferPaymentTest extends BaseTest
-{
+public class BankTransferPaymentTest extends BaseTest {
     ProductDetailsPage productDetailsPage;
     PageBase pageBase;
     PaymentPage paymentPage;
@@ -18,8 +21,7 @@ public class BankTransferPaymentTest extends BaseTest
     BillingAddressPage billingAddressPage;
 
     @BeforeClass
-    public void processToPayment()
-    {
+    public void processToPayment() {
 
         pageBase = new PageBase(driver);
 
@@ -40,21 +42,16 @@ public class BankTransferPaymentTest extends BaseTest
         billingAddressPage.clickOnProceedToCheckoutButton();
     }
 
-    @DataProvider(name = "BankData")
-    public Object[][] provideBankData() {
-        return new Object[][] {
-                {"Bank5 Connect", "Yara/", "111FQR"}
-        };
-    }
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify that the bank transfer payment process validates the bank name, account name, and account number correctly.")
+    @Test(priority = 1, dataProvider = "BankData", dataProviderClass = PaymentDataProvider.class)
+    public void BankPayment(String bankName, String accountName, String accountNumber) {
 
-    @Test(priority = 1, dataProvider = "BankData")
-    public void BankPayment(String bankName, String accountName, String accountNumber){
-
-      paymentPage = new PaymentPage(driver);
-      paymentPage.payUsingBankTransfer(bankName, accountName, accountNumber);
-      //bug
+        paymentPage = new PaymentPage(driver);
+        paymentPage.payUsingBankTransfer(bankName, accountName, accountNumber);
+        //bug
         Assert.assertTrue(paymentPage.getBankNameErrorMessage().isEmpty());
-        Assert.assertEquals(paymentPage.getAccountNameErrorMessage(),"Account name can contain letters, numbers, spaces, periods, apostrophes, and hyphens.");
+        Assert.assertEquals(paymentPage.getAccountNameErrorMessage(), "Account name can contain letters, numbers, spaces, periods, apostrophes, and hyphens.");
         //bug
         Assert.assertTrue(paymentPage.getAccountNumberErrorMessage().isEmpty());
     }
