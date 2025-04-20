@@ -88,7 +88,7 @@ public class RegistrationInvalidTests extends BaseTest
     }
 
     @Test(priority = 4, dataProvider = "invalidEmailFormatRegistrationData", dataProviderClass = RegistrationDataProvider.class)
-    public void invalidEmail(HashMap<String, String> testData) {
+    public void invalidEmailFormat(HashMap<String, String> testData) {
         registrationPage = new RegistrationPage(driver);
 
         registrationPage.enterFirstName(testData.get("firstName"));
@@ -105,26 +105,6 @@ public class RegistrationInvalidTests extends BaseTest
         registrationPage.clickOnRegisterButton();
 
         Assert.assertEquals(registrationPage.getEmailErrorMessage(), "Missing Top-Level Domain (TLD)");
-    }
-
-    @Test(priority = 5, dataProvider = "invalidPostalCodeRegistrationData", dataProviderClass = RegistrationDataProvider.class)
-    public void invalidPostalCode(HashMap<String, String> testData) {
-        registrationPage = new RegistrationPage(driver);
-
-        registrationPage.enterFirstName(testData.get("firstName"));
-        registrationPage.enterLastName(testData.get("lastName"));
-        registrationPage.selectDateOfBirth(testData.get("day"), testData.get("month"), testData.get("year"));
-        registrationPage.enterStreet(testData.get("street"));
-        registrationPage.enterPostalCode(testData.get("postalCode"));
-        registrationPage.enterCity(testData.get("city"));
-        registrationPage.enterState(testData.get("state"));
-        registrationPage.selectCountry(testData.get("country"));
-        registrationPage.enterPhone(testData.get("phone"));
-        registrationPage.enterEmail(testData.get("email"));
-        registrationPage.enterPassword(testData.get("password"));
-        registrationPage.clickOnRegisterButton();
-
-        Assert.assertEquals(registrationPage.getPostalCodeErrorMessage(), "Postal code can't contain only letters");
     }
 
     @Test(priority = 6, dataProvider = "missingAtInEmailRegistrationData", dataProviderClass = RegistrationDataProvider.class)
@@ -145,6 +125,26 @@ public class RegistrationInvalidTests extends BaseTest
         registrationPage.clickOnRegisterButton();
 
         Assert.assertEquals(registrationPage.getEmailErrorMessage(), "Missing @");
+    }
+
+    @Test(priority = 5, dataProvider = "invalidPostalCodeRegistrationData", dataProviderClass = RegistrationDataProvider.class)
+    public void invalidPostalCode(HashMap<String, String> testData) {
+        registrationPage = new RegistrationPage(driver);
+
+        registrationPage.enterFirstName(testData.get("firstName"));
+        registrationPage.enterLastName(testData.get("lastName"));
+        registrationPage.selectDateOfBirth(testData.get("day"), testData.get("month"), testData.get("year"));
+        registrationPage.enterStreet(testData.get("street"));
+        registrationPage.enterPostalCode(testData.get("postalCode"));
+        registrationPage.enterCity(testData.get("city"));
+        registrationPage.enterState(testData.get("state"));
+        registrationPage.selectCountry(testData.get("country"));
+        registrationPage.enterPhone(testData.get("phone"));
+        registrationPage.enterEmail(testData.get("email"));
+        registrationPage.enterPassword(testData.get("password"));
+        registrationPage.clickOnRegisterButton();
+
+        Assert.assertEquals(registrationPage.getPostalCodeErrorMessage(), "Postal code can't contain only letters");
     }
 
     @Test(priority = 7, dataProvider = "weakPasswordRegistrationData", dataProviderClass = RegistrationDataProvider.class)

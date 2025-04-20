@@ -1,5 +1,6 @@
 package tests;
 
+import com.github.javafaker.Faker;
 import data.RegistrationDataProvider;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -18,6 +19,12 @@ public class HappyScenarioTests extends BaseTest
     ProductDetailsPage productDetailsPage;
     SignInPage signInPage;
     BillingAddressPage addressPage;
+
+    Faker dataFaker = new Faker();
+    String firstName = dataFaker.name().firstName();
+    String lastName = dataFaker.name().lastName();
+    String email = dataFaker.internet().emailAddress();
+    String password = dataFaker.internet().password(8, 12, true, true, true);
 
     @Test(priority = 1)
     public void searchProductName() {
@@ -69,8 +76,8 @@ public class HappyScenarioTests extends BaseTest
         this.signInPage = new SignInPage(driver);
 
         RegistrationPage registrationPage = signInPage.clickOnRegisterLink();
-        registrationPage.enterFirstName(testData.get("firstName"));
-        registrationPage.enterLastName(testData.get("lastName"));
+        registrationPage.enterFirstName(firstName);
+        registrationPage.enterLastName(lastName);
         registrationPage.selectDateOfBirth(testData.get("day"), testData.get("month"), testData.get("year"));
         registrationPage.enterStreet(testData.get("street"));
         registrationPage.enterPostalCode(testData.get("postalCode"));
@@ -78,10 +85,10 @@ public class HappyScenarioTests extends BaseTest
         registrationPage.enterState(testData.get("state"));
         registrationPage.selectCountry(testData.get("country"));
         registrationPage.enterPhone(testData.get("phone"));
-        registrationPage.enterEmail(testData.get("email"));
-        registrationPage.enterPassword(testData.get("password") );
+        registrationPage.enterEmail(email);
+        registrationPage.enterPassword(password);
         registrationPage.clickOnRegisterButton();
-        signInPage.signIn(testData.get("email"), testData.get("password"));
+        signInPage.signIn(email, password);
         signInPage.clickOnCartIcon();
 
         this.cartPage = new CartPage(driver);

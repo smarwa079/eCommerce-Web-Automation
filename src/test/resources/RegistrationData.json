@@ -12,7 +12,6 @@
     "state": "cairo",
     "country": "Egypt",
     "phone": "01235675901",
-    "email": "marw8213ssllh80@gmail.com",
     "password": "m_Salah1234"
   },
   {
@@ -80,22 +79,6 @@
     "password": "m_Salah1234"
   },
   {
-    "testCase": "invalidPostalCode",
-    "firstName": "Marwa",
-    "lastName": "Salah",
-    "day": "27",
-    "month": "8",
-    "year": "2000",
-    "street": "123 main st.",
-    "postalCode": "fffff",
-    "city": "Zamalek",
-    "state": "cairo",
-    "country": "Egypt",
-    "phone": "01235675901",
-    "email": "marwa.salah@gmail.com",
-    "password": "m_Salah1234"
-  },
-  {
     "testCase": "missingAtInEmail",
     "firstName": "Marwa",
     "lastName": "Salah",
@@ -109,6 +92,22 @@
     "country": "Egypt",
     "phone": "01235675901",
     "email": "marwa.salahgmail.com",
+    "password": "m_Salah1234"
+  },
+  {
+    "testCase": "invalidPostalCode",
+    "firstName": "Marwa",
+    "lastName": "Salah",
+    "day": "27",
+    "month": "8",
+    "year": "2000",
+    "street": "123 main st.",
+    "postalCode": "fffff",
+    "city": "Zamalek",
+    "state": "cairo",
+    "country": "Egypt",
+    "phone": "01235675901",
+    "email": "marwa.salah@gmail.com",
     "password": "m_Salah1234"
   },
   {
