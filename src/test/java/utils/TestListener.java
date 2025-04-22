@@ -1,6 +1,7 @@
 package utils;
 
 import io.qameta.allure.Allure;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -12,12 +13,16 @@ import java.io.IOException;
 
 public class TestListener implements ITestListener
 {
+    private static boolean alreadyCleaned = false;
 
     @Override
     public void onStart(ITestContext context)
     {
-        deleteFolder("Screenshots");
-        deleteFolder("allure-results");
+        if (!alreadyCleaned) {
+            deleteFolder("Screenshots");
+            deleteFolder("allure-results");
+            alreadyCleaned = true;
+        }
     }
 
     @Override
@@ -25,7 +30,10 @@ public class TestListener implements ITestListener
     {
         String screenshotPath = null;
         try {
-            screenshotPath = BaseTest.takeScreenshot(result.getMethod().getMethodName());
+            Object testClass = result.getInstance();
+            WebDriver driver = ((BaseTest) testClass).getDriver();
+
+            screenshotPath = TakeScreenshot.takeScreenshot(result.getMethod().getMethodName(), driver);
             Allure.addAttachment(result.getMethod().getMethodName(), new FileInputStream(screenshotPath));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -36,8 +44,10 @@ public class TestListener implements ITestListener
     {
         File folder = new File(folderName);
 
-        if (folder.exists()) {
-            for (File file : folder.listFiles()) {
+        if (folder.exists())
+        {
+            for (File file : folder.listFiles())
+            {
                 file.delete();
             }
         }

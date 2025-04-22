@@ -1,21 +1,16 @@
 package utils;
 
 import com.github.javafaker.Faker;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.testng.annotations.*;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Locale;
 
-@Listeners(TestListener.class)
-public class BaseTest {
+public class BaseTest
+{
 
     protected static WebDriver driver;
 
@@ -43,21 +38,14 @@ public class BaseTest {
         driver.get("https://practicesoftwaretesting.com/");
     }
 
-    public static String takeScreenshot(String testCaseName) throws IOException
-    {
-        String filePath = System.getProperty("user.dir") + "/Screenshots/" + testCaseName +".png";
-        TakesScreenshot screenshot = (TakesScreenshot) driver;
-        File source = screenshot.getScreenshotAs(OutputType.FILE);
-        File destination = new File(filePath);
-        FileUtils.copyFile(source, destination);
-
-        return filePath;
-    }
-
     @AfterTest
     public void shutDown()
     {
         driver.quit();
     }
 
+    public WebDriver getDriver()
+    {
+        return driver;
+    }
 }
