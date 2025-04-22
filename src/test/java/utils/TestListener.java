@@ -2,27 +2,21 @@ package utils;
 
 import io.qameta.allure.Allure;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
+import org.testng.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
 
-public class TestListener implements ITestListener
+public class TestListener implements ITestListener, ISuiteListener
 {
-    private static boolean alreadyCleaned = false;
 
     @Override
-    public void onStart(ITestContext context)
+    public void onStart(ISuite suite)
     {
-        if (!alreadyCleaned) {
-            deleteFolder("Screenshots");
-            deleteFolder("allure-results");
-            alreadyCleaned = true;
-        }
+      deleteFolder("Screenshots");
+      deleteFolder("allure-results");
     }
 
     @Override
