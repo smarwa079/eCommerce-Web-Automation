@@ -8,17 +8,13 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import org.testng.ITestResult;
-
 import org.testng.annotations.*;
-
-
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
-
+@Listeners(TestListener.class)
 public class BaseTest {
 
     protected static WebDriver driver;
@@ -47,15 +43,15 @@ public class BaseTest {
         driver.get("https://practicesoftwaretesting.com/");
     }
 
-    @AfterMethod
-    public void getScreenShot(ITestResult result) throws IOException {
-        if(ITestResult.FAILURE == result.getStatus())
-        {
-            TakesScreenshot screenshot = (TakesScreenshot) driver;
-            File source = screenshot.getScreenshotAs(OutputType.FILE);
-            File destination = new File("./ScreenShots/"+result.getName()+".png");
-            FileUtils.copyFile(source, destination);
-        }
+    public static String takeScreenshot(String testCaseName) throws IOException
+    {
+        String filePath = System.getProperty("user.dir") + "/Screenshots/" + testCaseName +".png";
+        TakesScreenshot screenshot = (TakesScreenshot) driver;
+        File source = screenshot.getScreenshotAs(OutputType.FILE);
+        File destination = new File(filePath);
+        FileUtils.copyFile(source, destination);
+
+        return filePath;
     }
 
     @AfterTest
