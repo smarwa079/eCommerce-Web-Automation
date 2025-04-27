@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,7 @@ public class HomePage extends CommonPage {
         super(driver);
     }
 
+    @Step ("Search for product: {searchQuery}")
     public void searchForProduct(String searchQuery)
     {
         WebElement searchFieldElement = driver.findElement(searchField);
@@ -25,6 +27,7 @@ public class HomePage extends CommonPage {
         refreshProductsList();
     }
 
+    @Step ("Click on reset search button")
     public void clickOnResetSearchButton()
     {
         waitUtils.waitForElementClickable(resetSearchButton).click();

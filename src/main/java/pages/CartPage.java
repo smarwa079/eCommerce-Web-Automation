@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -30,18 +31,21 @@ public class CartPage extends PageBase {
         waitUtils.waitForElementVisible(By.xpath("//table[@class='table table-hover']"));
     }
 
+    @Step("Find cart item: {productName}")
     public boolean findCartItem(String productName)
     {
         List<WebElement>  cartItemsList = driver.findElements(cartItems);
         return cartItemsList.stream().anyMatch(i -> i.getText().trim().equalsIgnoreCase(productName.trim()));
     }
 
+    @Step("Get cart items count")
     public int getCartItemsCount()
     {
         List<WebElement>  cartItemsList = driver.findElements(cartItems);
         return cartItemsList.size();
     }
 
+    @Step("Get cart item name: {productName}, quantity: {quantity}")
     public void updateProductQuantity(String productName, int quantity)
     {
         double oldTotalPrice = getTotalPrice();
@@ -71,6 +75,7 @@ public class CartPage extends PageBase {
 
     }
 
+    @Step ("Click on remove product button: {productName}")
     public void clickOnRemoveProductButton(String productName)
     {
         List<WebElement>  cartItemsList = driver.findElements(cartItems);
@@ -87,15 +92,18 @@ public class CartPage extends PageBase {
         }
     }
 
+    @Step ("Get total price")
     public double getTotalPrice()
     {
         return Double.parseDouble(waitUtils.waitForElementVisible(totalPrice).getText().replace("$", ""));
     }
 
+    @Step ("Click on Proceed to checkout button")
     public void clickOnProceedToCheckoutFirstButton() {
         waitUtils.waitForElementClickable(proceedToCheckout1).click();
     }
 
+    @Step ("Click on Proceed to checkout button")
     public void clickOnProceedToCheckoutSecondButton() {
         waitUtils.waitForElementClickable(proceedToCheckout2).click();
     }

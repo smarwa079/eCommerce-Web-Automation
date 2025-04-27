@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,13 +18,14 @@ public class PaymentPage extends PageBase {
     By accountNumberErrorMessage = By.xpath("//input[@data-test='bank_name']/following-sibling::div[3]");
     By confirmButton = By.xpath("//button[@data-test='finish']");
     By successPaymentMessage = By.xpath("//div[@data-test='payment-success-message']");
-//
+
     private WebElement paymentMethodsElement;
 
     public PaymentPage(WebDriver driver) {
         super(driver);
     }
 
+    @Step ("Pay Cash on Delivery")
     public void payCashOnDelivery()
     {
         paymentMethodsElement = driver.findElement(paymentMethods);
@@ -31,6 +33,7 @@ public class PaymentPage extends PageBase {
         options.selectByVisibleText("Cash on Delivery");
     }
 
+    @Step ("Pay using Bank Transfer: {bankName}, {accountName}, {accountNumber}")
     public void payUsingBankTransfer(String bankName, String accountName, String accountNumber)
     {
         paymentMethodsElement = driver.findElement(paymentMethods);
@@ -46,14 +49,17 @@ public class PaymentPage extends PageBase {
         accountNumberFieldElement.sendKeys(accountNumber);
     }
 
+    @Step ("Get bank name field error message")
     public String getBankNameErrorMessage() {
         return waitUtils.waitForElementVisible(bankNameErrorMessage).getText();
     }
 
+    @Step ("Get account name field error message")
     public String getAccountNameErrorMessage() {
         return waitUtils.waitForElementVisible(accountNameErrorMessage).getText();
     }
 
+    @Step ("Get account number field error message")
     public String getAccountNumberErrorMessage() {
         try{
             return waitUtils.waitForElementVisible(accountNumberErrorMessage).getText();
@@ -62,10 +68,12 @@ public class PaymentPage extends PageBase {
         }
     }
 
+    @Step ("Get success payment message")
     public String getSuccessPaymentMessage() {
         return waitUtils.waitForElementVisible(successPaymentMessage).getText();
     }
 
+    @Step ("Click on confirm button")
     public void clickOnConfirmButton()
     {
         waitUtils.waitForElementClickable(confirmButton).click();

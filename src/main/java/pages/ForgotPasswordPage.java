@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ public class ForgotPasswordPage extends PageBase {
         super(driver);
     }
 
+    @Step("Enter email: {email}")
     public void enterEmail(String email)
     {
         WebElement emailFieldElement = driver.findElement(emailField);
@@ -40,6 +42,7 @@ public class ForgotPasswordPage extends PageBase {
         }
     }
 
+    @Step("Click on Send New Password button")
     public void clickOnSendNewPasswordButton()
     {
         waitUtils.waitForElementClickable(sendNewPasswordButton).click();

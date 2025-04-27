@@ -1,6 +1,5 @@
 package tests;
 
-import com.github.javafaker.Faker;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -11,7 +10,6 @@ import pages.*;
 import utils.BaseTest;
 
 import java.util.List;
-
 
 public class HappyScenarioTests extends BaseTest
 {

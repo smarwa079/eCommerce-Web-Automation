@@ -1,13 +1,9 @@
 package utils;
 
-import io.qameta.allure.Allure;
 import org.openqa.selenium.WebDriver;
 import org.testng.*;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 
 public class TestListener implements ITestListener, ISuiteListener
 {
@@ -23,15 +19,20 @@ public class TestListener implements ITestListener, ISuiteListener
     public void onTestFailure(ITestResult result)
     {
         String screenshotPath = null;
-        try {
-            Object testClass = result.getInstance();
-            WebDriver driver = ((BaseTest) testClass).getDriver();
 
-            screenshotPath = TakeScreenshot.takeScreenshot(result.getMethod().getMethodName(), driver);
-            Allure.addAttachment(result.getMethod().getMethodName(), new FileInputStream(screenshotPath));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Object testClass = result.getInstance();
+        WebDriver driver = ((BaseTest) testClass).getDriver();
+
+        screenshotPath = TakeScreenshot.takeScreenshot(result.getMethod().getMethodName(), driver);
+
+        AllureUtils.attachScreenshot(result.getMethod().getMethodName(), screenshotPath);
+
+    }
+
+    @Override
+    public void onFinish(ISuite suite)
+    {
+        AllureUtils.generateAllureReport();
     }
 
     public void deleteFolder(String folderName)

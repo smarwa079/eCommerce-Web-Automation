@@ -10,13 +10,17 @@ import java.io.IOException;
 
 public class TakeScreenshot
 {
-    public static String takeScreenshot(String testCaseName, WebDriver driver) throws IOException
+    public static String takeScreenshot(String testCaseName, WebDriver driver)
     {
         String filePath = System.getProperty("user.dir") + "/Screenshots/" + testCaseName +".png";
         TakesScreenshot screenshot = (TakesScreenshot) driver;
         File source = screenshot.getScreenshotAs(OutputType.FILE);
         File destination = new File(filePath);
-        FileUtils.copyFile(source, destination);
+        try {
+            FileUtils.copyFile(source, destination);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         return filePath;
     }

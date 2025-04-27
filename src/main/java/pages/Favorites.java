@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +19,7 @@ public class Favorites extends PageBase {
         super(driver);
     }
 
+    @Step ("Get all products from favorites")
     public String getProductFromFavorites(String productName)
     {
         List<WebElement> productsNamesList = driver.findElements(productsNames);
@@ -26,6 +28,7 @@ public class Favorites extends PageBase {
         return (product.isEmpty())? "Not Found" : product.getFirst().getText();
     }
 
+    @Step ("Delete product from favorites: {productName}")
     public void deleteProductFromFavorites(String productName)
     {
         List<WebElement> productsNamesList = driver.findElements(productsNames);
@@ -38,6 +41,7 @@ public class Favorites extends PageBase {
         waitUtils.waitForElementInvisibility(productsNames);
     }
 
+    @Step ("Get delete product message")
     public  String deleteProductMessage()
     {
         String message =  waitUtils.waitForElementVisible(removeMessage).getText();

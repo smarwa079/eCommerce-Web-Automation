@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,6 +20,7 @@ public class SignInPage extends PageBase {
         super(driver);
     }
 
+    @Step("Sign in with email: {0} and password: {1}")
     public void signIn(String email, String password)
     {
         waitUtils.waitForElementVisible(emailField).sendKeys(email);
@@ -26,19 +28,23 @@ public class SignInPage extends PageBase {
         waitUtils.waitForElementVisible(passwordField).sendKeys(password);
 
         waitUtils.waitForElementClickable(loginButton).click();
+
         waitUtils.waitForElementVisible(myAccountDropdown);
     }
 
+    @Step ("Get email field error message")
     public String getEmailErrorMessage()
     {
         return waitUtils.waitForElementVisible(emailErrorMessage).getText();
     }
 
+    @Step("Get password field error message")
     public String getPasswordErrorMessage()
     {
         return waitUtils.waitForElementVisible(passwordErrorMessage).getText();
     }
 
+    @Step("Click on register link")
     public RegistrationPage clickOnRegisterLink()
     {
         waitUtils.waitForElementClickable(registerLink).click();
@@ -46,6 +52,7 @@ public class SignInPage extends PageBase {
         return new RegistrationPage(driver);
     }
 
+    @Step("Click on forgot password link")
     public ForgotPasswordPage clickOnForgotPasswordLink() {
 
 

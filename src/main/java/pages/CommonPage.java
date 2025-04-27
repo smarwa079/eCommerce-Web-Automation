@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -49,6 +50,7 @@ public class CommonPage extends PageBase {
         return productsList;
     }
 
+    @Step ("Filter products by category: {category}")
     public void filterProductsByCategory(String category) {
         List<WebElement> categoriesList = driver.findElements(categories);
 
@@ -61,6 +63,7 @@ public class CommonPage extends PageBase {
         refreshProductsList(); // Refresh the product list after filtering
     }
 
+    @Step ("Filter products by brand: {brand}")
     public void filterProductsByBrand(String brand) {
         List<WebElement> brandsList = driver.findElements(brands);
 
@@ -73,6 +76,7 @@ public class CommonPage extends PageBase {
         refreshProductsList(); // Refresh the product list after filtering
     }
 
+    @Step ("Select product: {productName}")
     public ProductDetailsPage selectProduct(String productName) {
         if (productsList == null || productsList.isEmpty()) {
             refreshProductsList();
@@ -87,11 +91,13 @@ public class CommonPage extends PageBase {
         return new ProductDetailsPage(driver);
     }
 
+    @Step ("Click on next page button")
     public void clickOnNextPageButton() {
         waitUtils.waitForElementClickable(nextPageButton).click();
         refreshProductsList(); // Refresh the product list after navigating
     }
 
+    @Step ("Click on previous page button")
     public void clickOnPreviousPageButton() {
         waitUtils.waitForElementClickable(previousPageButton).click();
         refreshProductsList(); // Refresh the product list after navigating

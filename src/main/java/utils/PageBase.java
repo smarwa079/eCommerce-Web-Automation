@@ -1,5 +1,6 @@
 package utils;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,6 +31,7 @@ public class PageBase {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Navigate to Home Page")
     public CommonPage clickOnHomeLink()
     {
         waitUtils.waitForElementClickable(homeLink).click();
@@ -38,22 +40,26 @@ public class PageBase {
         return new CommonPage(driver);
     }
 
-    public void clickOnCategoriesLink()
+    @Step("Click on Categories Dropdown")
+    public void clickOnCategoriesDropdownList()
     {
        waitUtils.waitForElementClickable( categoriesDropdown).click();
     }
 
+    @Step("Select Category: {category}")
     public void selectCategory(String category)
     {
         WebElement categoryElement = driver.findElement(By.linkText(category));
         waitUtils.waitForElementClickable(categoryElement).click();
     }
 
+    @Step("Click on Contact Link")
     public void clickOnContactLink()
     {
         waitUtils.waitForElementClickable(contactLink).click();
     }
 
+    @Step("Click on Sign In Link")
     public SignInPage clickOnSignInLink()
     {
         waitUtils.waitForElementClickable(signInLink).click();
@@ -61,15 +67,20 @@ public class PageBase {
         return new SignInPage(driver);
     }
 
+    @Step("Click on Cart Icon")
     public void clickOnCartIcon()
     {
         waitUtils.waitForElementClickable(cartIcon).click();
     }
+
+    @Step("Click on My Account Dropdown")
     public void clickOnAccountDropdown()
     {
         waitUtils.waitForElementVisible(myAccountDropdown).click();
 
     }
+
+    @Step("Click on My Favorites")
     public Favorites clickOnMyFavorites()
     {
         waitUtils.waitForElementVisible(myFavorites).click();
