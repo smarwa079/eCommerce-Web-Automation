@@ -3,7 +3,7 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import utils.LogUtils;
 import utils.PageBase;
 
 public class SignInPage extends PageBase {
@@ -23,6 +23,7 @@ public class SignInPage extends PageBase {
     @Step("Sign in with email: {0} and password: {1}")
     public void signIn(String email, String password)
     {
+        LogUtils.info("Sign in with email: " + email + " and password: " + password);
         waitUtils.waitForElementVisible(emailField).sendKeys(email);
 
         waitUtils.waitForElementVisible(passwordField).sendKeys(password);
@@ -35,12 +36,16 @@ public class SignInPage extends PageBase {
     @Step ("Get email field error message")
     public String getEmailErrorMessage()
     {
-        return waitUtils.waitForElementVisible(emailErrorMessage).getText();
+        String errorMessage = waitUtils.waitForElementVisible(emailErrorMessage).getText();
+        LogUtils.info("Email error message: ", errorMessage);
+        return errorMessage;
     }
 
     @Step("Get password field error message")
     public String getPasswordErrorMessage()
     {
+        String errorMessage = waitUtils.waitForElementVisible(passwordErrorMessage).getText();
+        LogUtils.info("Password error message: ", errorMessage);
         return waitUtils.waitForElementVisible(passwordErrorMessage).getText();
     }
 
@@ -53,13 +58,8 @@ public class SignInPage extends PageBase {
     }
 
     @Step("Click on forgot password link")
-    public ForgotPasswordPage clickOnForgotPasswordLink() {
-
-
+    public void clickOnForgotPasswordLink()
+    {
         waitUtils.waitForElementClickable(forgotPasswordLink).click();
-
-        return new ForgotPasswordPage(driver);
     }
-
-
 }

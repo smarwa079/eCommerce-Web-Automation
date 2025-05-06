@@ -8,13 +8,13 @@ import utils.PageBase;
 
 import java.util.List;
 
-public class Favorites extends PageBase {
+public class FavoritesPage extends PageBase {
 
     By productsNames = By.xpath("//h5[@data-test='product-name']");
     By deleteButtons = By.xpath("//button[@data-test='delete']");
     By removeMessage = By.xpath("//div[@class='ng-star-inserted']");
 
-    public Favorites(WebDriver driver)
+    public FavoritesPage(WebDriver driver)
     {
         super(driver);
     }

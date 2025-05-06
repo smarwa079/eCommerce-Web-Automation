@@ -18,8 +18,9 @@ public class TakeScreenshot
         File destination = new File(filePath);
         try {
             FileUtils.copyFile(source, destination);
+            LogUtils.info("Screenshot saved at: ", filePath);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtils.error("Error while taking screenshot: ", e.getMessage());
         }
 
         return filePath;

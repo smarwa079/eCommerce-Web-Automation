@@ -29,7 +29,7 @@ public class BankTransferPaymentTest extends BaseTest {
 
         homePage = new HomePage(driver);
 
-        this.productDetailsPage = homePage.selectProduct("pliers");
+        productDetailsPage = homePage.selectProduct("pliers");
         productDetailsPage.clickOnAddToCartButton();
         productDetailsPage.clickOnCartIcon();
 

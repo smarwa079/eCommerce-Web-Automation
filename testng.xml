@@ -8,7 +8,7 @@
 
     <test name="test1">
         <classes>
-            <class name="tests.HappyScenarioTests"/>
+            <class name="tests.E2E"/>
             <class name="tests.FavouritesTests"/>
             <class name="tests.BankTransferPaymentTest"/>
         </classes>

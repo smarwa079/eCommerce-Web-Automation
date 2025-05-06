@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.LogUtils;
 import utils.PageBase;
 
 import java.time.Duration;
@@ -38,7 +39,7 @@ public class CommonPage extends PageBase {
         wait.until((ExpectedCondition<Boolean>) driver -> {
             List<WebElement> updatedProducts = driver.findElements(products);
             if (updatedProducts.isEmpty()) return false;
-            String newFirstProductName = updatedProducts.get(0).getText();
+            String newFirstProductName = updatedProducts.getFirst().getText();
             return !newFirstProductName.equals(oldFirstProductName);
         });
     }
@@ -54,26 +55,31 @@ public class CommonPage extends PageBase {
     public void filterProductsByCategory(String category) {
         List<WebElement> categoriesList = driver.findElements(categories);
 
-        WebElement categoryCheckbox = categoriesList.stream()
-                .filter(categoryElement -> categoryElement.getText().equals(category))
+        categoriesList.stream()
+                .filter(categoryCheckbox -> categoryCheckbox.getText().equals(category))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Category not found: " + category));
-
-        waitUtils.waitForElementClickable(categoryCheckbox).click();
-        refreshProductsList(); // Refresh the product list after filtering
+                .ifPresentOrElse(
+                        categoryCheckbox -> {
+                            waitUtils.waitForElementClickable(categoryCheckbox).click();
+                            refreshProductsList(); // Refresh the product list after filtering
+                        },
+                        () -> LogUtils.error("Category not found: " + category)
+                );
     }
 
     @Step ("Filter products by brand: {brand}")
     public void filterProductsByBrand(String brand) {
         List<WebElement> brandsList = driver.findElements(brands);
 
-        WebElement brandCheckbox = brandsList.stream()
+        brandsList.stream()
                 .filter(brandElement -> brandElement.getText().equalsIgnoreCase(brand))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Brand not found: " + brand));
-
-        waitUtils.waitForElementClickable(brandCheckbox).click();
-        refreshProductsList(); // Refresh the product list after filtering
+                .ifPresentOrElse( brandCheckbox -> {
+                    waitUtils.waitForElementClickable(brandCheckbox).click();
+                    refreshProductsList(); // Refresh the product list after filtering
+                    },
+                    () -> LogUtils.error("Brand not found: " + brand)
+                );
     }
 
     @Step ("Select product: {productName}")
@@ -82,12 +88,13 @@ public class CommonPage extends PageBase {
             refreshProductsList();
         }
 
-        WebElement productElement = productsList.stream()
+        productsList.stream()
                 .filter(product -> product.getText().equalsIgnoreCase(productName))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Product not found: " + productName));
-
-        waitUtils.waitForElementClickable(productElement).click();
+                .ifPresentOrElse(
+                        productElement -> waitUtils.waitForElementClickable(productElement).click(),
+                        () -> LogUtils.error("Product not found: " + productName)
+                );
         return new ProductDetailsPage(driver);
     }
 

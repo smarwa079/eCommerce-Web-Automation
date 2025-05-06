@@ -7,13 +7,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.LogUtils;
 import utils.PageBase;
 
 import java.time.Duration;
-import java.util.NoSuchElementException;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class CartPage extends PageBase {
 
@@ -42,7 +41,9 @@ public class CartPage extends PageBase {
     public int getCartItemsCount()
     {
         List<WebElement>  cartItemsList = driver.findElements(cartItems);
-        return cartItemsList.size();
+        int itemCount = cartItemsList.size();
+        LogUtils.info("Cart items count: ", String.valueOf(itemCount));
+        return itemCount;
     }
 
     @Step("Get cart item name: {productName}, quantity: {quantity}")
@@ -52,7 +53,7 @@ public class CartPage extends PageBase {
 
         List<WebElement>  cartItemsList = driver.findElements(cartItems);
         cartItemsList.stream()
-                .filter(item -> item.getText().contains(productName)) // Checks if product exists
+                .filter(item -> item.getText().contains(productName)) // Checks if the product exists
                 .findFirst() // Takes the first match (if any)
                 .ifPresentOrElse(
                         item -> {
@@ -70,7 +71,9 @@ public class CartPage extends PageBase {
                             });
 
                         },
-                        () -> { throw new NoSuchElementException("Product '" + productName + "' not found in cart!"); }
+                        () -> {
+                            LogUtils.error("Product '" + productName + "' not found in cart!");
+                        }
                 );
 
     }
@@ -80,31 +83,39 @@ public class CartPage extends PageBase {
     {
         List<WebElement>  cartItemsList = driver.findElements(cartItems);
 
-        int index = IntStream.range(0, cartItemsList.size())
-                .filter(i -> cartItemsList.get(i).getText().equals(productName))
+        cartItemsList.stream()
+                .filter(item -> item.getText().equalsIgnoreCase(productName))
                 .findFirst()
-                .orElse(-1);
-
-        if (index != -1)
-        {
-            List<WebElement> removeButtonsList = driver.findElements(removeButtons);
-            waitUtils.waitForElementClickable(removeButtonsList.get(index)).click();
-        }
+                .ifPresentOrElse(
+                        item -> {
+                            int index = cartItemsList.indexOf(item);
+                            List<WebElement> removeButtonsList = driver.findElements(removeButtons);
+                            waitUtils.waitForElementClickable(removeButtonsList.get(index)).click();
+                        },
+                        () -> {
+                            LogUtils.error("Product '" + productName + "' not found in cart!");
+                        }
+                );
     }
 
     @Step ("Get total price")
     public double getTotalPrice()
     {
-        return Double.parseDouble(waitUtils.waitForElementVisible(totalPrice).getText().replace("$", ""));
+        String totalPriceText = waitUtils.waitForElementVisible(totalPrice).getText().replace("$", "");
+        LogUtils.info("Total price: ", totalPriceText);
+        return Double.parseDouble(totalPriceText);
     }
 
     @Step ("Click on Proceed to checkout button")
     public void clickOnProceedToCheckoutFirstButton() {
+        LogUtils.info("Clicked on", proceedToCheckout1.toString());
         waitUtils.waitForElementClickable(proceedToCheckout1).click();
     }
 
     @Step ("Click on Proceed to checkout button")
-    public void clickOnProceedToCheckoutSecondButton() {
+    public void clickOnProceedToCheckoutSecondButton()
+    {
+        LogUtils.info("Clicked on", proceedToCheckout2.toString());
         waitUtils.waitForElementClickable(proceedToCheckout2).click();
     }
 

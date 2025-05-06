@@ -3,6 +3,7 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utils.LogUtils;
 
 public class CategoryPage extends CommonPage {
 
@@ -15,6 +16,8 @@ public class CategoryPage extends CommonPage {
     @Step ("Get page title")
     public String getPageTitle()
     {
-        return waitUtils.waitForElementVisible(pageTitle).getText();
+        String title = waitUtils.waitForElementVisible(pageTitle).getText();
+        LogUtils.info("Page title: ", title);
+        return title;
     }
 }

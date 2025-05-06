@@ -50,17 +50,20 @@ public class PaymentPage extends PageBase {
     }
 
     @Step ("Get bank name field error message")
-    public String getBankNameErrorMessage() {
+    public String getBankNameErrorMessage()
+    {
         return waitUtils.waitForElementVisible(bankNameErrorMessage).getText();
     }
 
     @Step ("Get account name field error message")
-    public String getAccountNameErrorMessage() {
+    public String getAccountNameErrorMessage()
+    {
         return waitUtils.waitForElementVisible(accountNameErrorMessage).getText();
     }
 
     @Step ("Get account number field error message")
-    public String getAccountNumberErrorMessage() {
+    public String getAccountNumberErrorMessage()
+    {
         try{
             return waitUtils.waitForElementVisible(accountNumberErrorMessage).getText();
         }catch(org.openqa.selenium.NoSuchElementException e){
@@ -69,7 +72,8 @@ public class PaymentPage extends PageBase {
     }
 
     @Step ("Get success payment message")
-    public String getSuccessPaymentMessage() {
+    public String getSuccessPaymentMessage()
+    {
         return waitUtils.waitForElementVisible(successPaymentMessage).getText();
     }
 

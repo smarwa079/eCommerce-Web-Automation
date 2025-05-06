@@ -14,7 +14,7 @@ public class FavouritesTests extends BaseTest
     CommonPage commonPage;
     ProductDetailsPage productDetailsPage;
     PageBase pageBase;
-    Favorites favorites;
+    FavoritesPage favorites;
 
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that a product can be added to the favorites list.")
@@ -47,7 +47,7 @@ public class FavouritesTests extends BaseTest
         pageBase.clickOnAccountDropdown();
         pageBase.clickOnMyFavorites();
 
-        this.favorites = new Favorites(driver);
+        this.favorites = new FavoritesPage(driver);
         Assert.assertEquals(favorites.getProductFromFavorites("Combination Pliers"),"Combination Pliers");
     }
 
@@ -56,7 +56,7 @@ public class FavouritesTests extends BaseTest
     @Test(priority = 5)
     public void removeProductFromFavourites()
     {
-        this.favorites = new Favorites(driver);
+        this.favorites = new FavoritesPage(driver);
 
         favorites.deleteProductFromFavorites("Combination Pliers");
 

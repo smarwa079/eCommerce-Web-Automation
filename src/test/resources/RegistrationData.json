@@ -16,9 +16,9 @@
     "password": "m_Salah1234"
   },
   {
-    "testCase": "shortLastName",
+    "testCase": "lastNameSpecialCharacters",
     "firstName": "Marwa",
-    "lastName": "sa",
+    "lastName": "sa#",
     "day": "27",
     "month": "8",
     "year": "1996",

@@ -7,7 +7,11 @@ public class PaymentDataProvider
     @DataProvider(name = "BankData")
     public Object[][] provideBankData() {
         return new Object[][]{
-                {"Bank5 Connect", "Yara/", "111FQR"}
+                {
+                    "Bank5 Connect",
+                        "Yara/",
+                        "111FQR"
+                }
         };
     }
 }

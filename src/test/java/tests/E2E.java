@@ -11,7 +11,7 @@ import utils.BaseTest;
 
 import java.util.List;
 
-public class HappyScenarioTests extends BaseTest
+public class E2E extends BaseTest
 {
     HomePage homePage;
     CartPage cartPage;
@@ -22,7 +22,7 @@ public class HappyScenarioTests extends BaseTest
     @Test(priority = 1)
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify that a product can be searched by name.")
-    public void searchProductName() {
+    public void SearchProductName() {
         this.homePage = new HomePage(driver);
 
         this.homePage.searchForProduct("hammer");
@@ -38,7 +38,7 @@ public class HappyScenarioTests extends BaseTest
     @Test(priority = 2)
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that a product can be added to the cart.")
-    public void addProductToCart() {
+    public void AddProductToCart() {
         this.homePage = new HomePage(driver);
 
         ProductDetailsPage detailsPage = homePage.selectProduct("Claw Hammer");
@@ -58,7 +58,7 @@ public class HappyScenarioTests extends BaseTest
     @Test(priority = 3)
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify that the cart can be updated with a new quantity.")
-    public void cart() {
+    public void CartUpdateQuantityAndCheckout() {
         this.cartPage = new CartPage(driver);
 
         cartPage.updateProductQuantity("Claw Hammer", 2);
@@ -72,7 +72,7 @@ public class HappyScenarioTests extends BaseTest
     @Test(priority = 4)
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that a user can register and sign in during the checkout process.")
-    public void cartSignIn()
+    public void CartSignIn()
     {
         this.signInPage = new SignInPage(driver);
 
@@ -101,7 +101,7 @@ public class HappyScenarioTests extends BaseTest
     @Test(priority = 5)
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify that the billing address can be confirmed during checkout.")
-    public void billingAddress()
+    public void BillingAddress()
     {
         addressPage = new BillingAddressPage(driver);
         addressPage.clickOnProceedToCheckoutButton();
@@ -110,7 +110,7 @@ public class HappyScenarioTests extends BaseTest
     @Test(priority = 6)
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that a payment can be successfully processed.")
-    public void payment()
+    public void Payment()
     {
         PaymentPage paymentPage = new PaymentPage(driver);
         paymentPage.payCashOnDelivery();

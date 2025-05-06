@@ -11,7 +11,7 @@ import java.util.List;
 
 public class JsonDataReader
 {
-    public static HashMap<String, String> readJsonData(String filePath, String testCaseName) throws IOException
+    public static HashMap<String, String> readJsonData(String filePath, String testCaseName)
     {
         HashMap<String, String> testCaseData = null;
 
@@ -19,18 +19,22 @@ public class JsonDataReader
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        List<HashMap<String, String>> testDataList  = objectMapper.readValue(srcFile, new TypeReference<List<HashMap<String, String>>>() {});
+        try {
+            List<HashMap<String, String>> testDataList = objectMapper.readValue(srcFile, new TypeReference<List<HashMap<String, String>>>() {});
 
-        for (HashMap<String, String> testCase : testDataList)
-        {
-            String currentTestCaseName = (String) testCase.get("testCase");
+            for (HashMap<String, String> testCase : testDataList)
+            {
+                String currentTestCaseName = (String) testCase.get("testCase");
 
-            if (currentTestCaseName.equalsIgnoreCase(testCaseName)) {
-                testCaseData = testCase;
-                break;
+                if (currentTestCaseName.equalsIgnoreCase(testCaseName)) {
+                    testCaseData = testCase;
+                    break;
+                }
+                LogUtils.info("Data for test case: ", testCaseName, " read successfully");
             }
+        } catch (IOException e) {
+            LogUtils.error("Error while reading JSON data: ", e.getMessage());
         }
-
         return testCaseData;
     }
 }

@@ -54,8 +54,8 @@ public class RegistrationInvalidTests extends BaseTest
 
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that the system shows an error when the last name field is less than 3 characters during registration.")
-    @Test(priority = 2, dataProvider = "shortLastNameRegistrationData", dataProviderClass = RegistrationDataProvider.class)
-    public void shortLastName(HashMap<String, String> testData) {
+    @Test(priority = 2, dataProvider = "LastNameSpecialCharactersRegistrationData", dataProviderClass = RegistrationDataProvider.class)
+    public void LastName_With_SpecialCharacters(HashMap<String, String> testData) {
         registrationPage = new RegistrationPage(driver);
 
         registrationPage.enterFirstName(testData.get("firstName"));

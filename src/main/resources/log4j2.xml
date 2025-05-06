@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN">
+
+    <!-- Define properties -->
+    <Properties>
+        <Property name="basePath">./Logs</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="consoleAppender" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false">
+                <Pattern>
+                    %highlight{[%p] - [%d{dd-MM-yyyy HH:mm:ss}] [%t] [%c] - %msg%n}{FATAL=red, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue}
+                </Pattern>
+            </PatternLayout>
+        </Console>
+
+        <!-- Rolling File Appender -->
+        <RollingFile name="fileAppender"
+                     fileName="${basePath}/automation.log"
+                     filePattern="${basePath}/automation-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%p] - [%d{dd-MM-yyyy HH:mm:ss}] [%t] [%c] - %msg%n" disableAnsi="false"/>
+            <SizeBasedTriggeringPolicy size="10MB"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- Root logger references the console and rolling appenders -->
+        <Root level="debug">
+            <AppenderRef ref="consoleAppender"/>
+            <AppenderRef ref="fileAppender"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

@@ -41,6 +41,7 @@ public class BaseTest
     @AfterTest
     public void shutDown()
     {
+        LogUtils.info("Closing browser");
         driver.quit();
     }
 

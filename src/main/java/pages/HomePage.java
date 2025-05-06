@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import utils.LogUtils;
 
 
 public class HomePage extends CommonPage {
@@ -20,6 +21,7 @@ public class HomePage extends CommonPage {
     @Step ("Search for product: {searchQuery}")
     public void searchForProduct(String searchQuery)
     {
+        LogUtils.info("Search for product: ", searchQuery);
         WebElement searchFieldElement = driver.findElement(searchField);
         searchFieldElement.clear();
         searchFieldElement.sendKeys(searchQuery);

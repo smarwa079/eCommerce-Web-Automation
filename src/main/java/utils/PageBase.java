@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import pages.CommonPage;
-import pages.Favorites;
+import pages.FavoritesPage;
 import pages.SignInPage;
 
 public class PageBase {
@@ -43,12 +43,14 @@ public class PageBase {
     @Step("Click on Categories Dropdown")
     public void clickOnCategoriesDropdownList()
     {
-       waitUtils.waitForElementClickable( categoriesDropdown).click();
+        LogUtils.info("Clicked on", categoriesDropdown.toString());
+        waitUtils.waitForElementClickable( categoriesDropdown).click();
     }
 
     @Step("Select Category: {category}")
     public void selectCategory(String category)
     {
+        LogUtils.info("Selected category: ", category, "from dropdown: ", categoriesDropdown.toString());
         WebElement categoryElement = driver.findElement(By.linkText(category));
         waitUtils.waitForElementClickable(categoryElement).click();
     }
@@ -56,12 +58,14 @@ public class PageBase {
     @Step("Click on Contact Link")
     public void clickOnContactLink()
     {
+        LogUtils.info("Clicked on", contactLink.toString());
         waitUtils.waitForElementClickable(contactLink).click();
     }
 
     @Step("Click on Sign In Link")
     public SignInPage clickOnSignInLink()
     {
+        LogUtils.info("Clicking on", signInLink.toString());
         waitUtils.waitForElementClickable(signInLink).click();
 
         return new SignInPage(driver);
@@ -70,22 +74,23 @@ public class PageBase {
     @Step("Click on Cart Icon")
     public void clickOnCartIcon()
     {
+        LogUtils.info("Clicking on", cartIcon.toString());
         waitUtils.waitForElementClickable(cartIcon).click();
     }
 
     @Step("Click on My Account Dropdown")
     public void clickOnAccountDropdown()
     {
+        LogUtils.info("Clicking on", myAccountDropdown.toString());
         waitUtils.waitForElementVisible(myAccountDropdown).click();
-
     }
 
     @Step("Click on My Favorites")
-    public Favorites clickOnMyFavorites()
+    public FavoritesPage clickOnMyFavorites()
     {
+        LogUtils.info("Clicked on", myFavorites.toString());
         waitUtils.waitForElementVisible(myFavorites).click();
         waitUtils.waitForElementVisible(myFavoritesProducts);
-        return new Favorites(driver);
+        return new FavoritesPage(driver);
     }
-
 }
